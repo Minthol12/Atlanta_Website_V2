@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta NewsCast V2 - Live World News</title>
+    
+    <!-- External Fonts & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #f8fafc;
+            --color-surface: #ffffff;
+            --color-primary: #1e40af; /* Atlanta Blue */
+            --color-accent: #3b82f6; 
+            --color-text: #1e293b;
+            --color-text-muted: #64748b;
+            --header-height: 70px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Consistent Header Styling */
+        .header {
+            height: var(--header-height);
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .logo-container a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .main-nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--color-primary);
+        }
+
+        .cta-button {
+            background: var(--color-primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--color-accent);
+            transform: translateY(-1px);
+        }
+
+        /* News Ticker Styling */
+        .news-ticker {
+            background: var(--color-primary);
+            color: white;
+            padding: 12px;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 40s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Article Card Styling */
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid #edf2f7;
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--color-accent);
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 40px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid #edf2f7;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Bee2.png" alt="Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/40?text=B'">
+                <span>Atlanta NewsCast</span>
+            </a>
+        </div>
+        
+        <nav class="main-nav hidden md:flex">
+            <a href="sports.html">Sports</a>
+            <a href="howto.html">How-To</a>
+            <a href="student.html">Student Section</a>
+            <a href="worldnews.html" class="active">World News</a>
+            <a href="schoolnews.html">School News</a>
+        </nav>
+
+        <div class="flex gap-4 items-center">
+            <a href="auth.html" class="hidden sm:block text-sm font-bold text-gray-500 hover:text-blue-800">Log In</a>
+            <a href="auth.html" class="cta-button">Sign Up</a>
+        </div>
+    </header>
+
+    <div class="news-ticker">
+        <div class="ticker-content" id="ticker-text">
+            🌍 ACCESSING GLOBAL SATELLITE FEED... STANDBY FOR LIVE HEADLINES... 🌍
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 p-8">
+        
+        <!-- Main News Feed -->
+        <section class="lg:col-span-3">
+            <div class="mb-8">
+                <span class="text-blue-600 font-extrabold uppercase tracking-widest text-xs">International Bureau</span>
+                <h1 class="text-4xl font-black text-slate-900 mt-2">
+                    Live <span class="text-blue-700">World News</span> Report
+                </h1>
+            </div>
+            
+            <div id="news-container">
+                <div class="loading-spinner"></div>
+                <p class="text-center text-slate-500 font-medium">Bypassing firewalls and fetching real-time data...</p>
+            </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="space-y-6">
+            <div class="sidebar-card">
+                <h2 class="text-lg font-bold mb-4 text-blue-900 border-b pb-2 flex items-center gap-2">
+                    <i class="fas fa-fire text-orange-500"></i> Trending Now
+                </h2>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-sm font-semibold text-slate-600">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> Quantum Computing
+                    </li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-slate-600">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span> Arctic Conservation
+                    </li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-slate-600">
+                        <span class="w-2 h-2 rounded-full bg-purple-500"></span> Mars Colony Phase 2
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-700 to-indigo-900 p-6 rounded-xl shadow-lg text-white">
+                <h2 class="text-lg font-bold mb-2">Global Opinion</h2>
+                <p class="text-blue-100 mb-4 text-sm opacity-90">Should internet access be declared a universal human right?</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <button class="bg-white/20 hover:bg-white/30 py-2 rounded text-sm font-bold backdrop-blur-sm transition">Yes</button>
+                    <button class="bg-white/20 hover:bg-white/30 py-2 rounded text-sm font-bold backdrop-blur-sm transition">No</button>
+                </div>
+            </div>
+        </aside>
+    </div> 
+    
+    <footer class="bg-white border-t border-gray-200 py-10 mt-10">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <p class="text-slate-600 font-medium">Atlanta C-3 Schools • 600 S. Atterberry Street • Atlanta, Missouri 63530</p>
+            <div class="flex justify-center gap-6 mt-2 text-sm text-slate-400">
+                <span>(P) 660-239-4211</span>
+                <span>(F) 660-239-4205</span>
+            </div>
+            <p class="mt-6 text-xs font-bold text-blue-600 uppercase tracking-widest">Atlanta NewsCast V2 • Made by Zayne ;)</p>
+        </div>
+    </footer>
+
+    <script>
+        const apiKey = ""; // Provided by environment
+
+        async function fetchWithRetry(url, options, retries = 5, backoff = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                if (retries > 0) {
+                    await new Promise(resolve => setTimeout(resolve, backoff));
+                    return fetchWithRetry(url, options, retries - 1, backoff * 2);
+                }
+                throw error;
+            }
+        }
+
+        async function fetchLiveNews() {
+            const container = document.getElementById('news-container');
+            const ticker = document.getElementById('ticker-text');
+            
+            const systemPrompt = `You are an elite world news journalist. 
+            Provide 5 major current, real-world international news stories. 
+            Format as a JSON array of objects. 
+            Each object: {"title", "category", "author", "date", "summary"}.
+            Be strictly factual and professional.`;
+
+            const userQuery = "Retrieve 5 top world news headlines for today.";
+
+            try {
+                const result = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: userQuery }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        tools: [{ "google_search": {} }],
+                        generationConfig: { responseMimeType: "application/json" }
+                    })
+                });
+
+                const newsData = JSON.parse(result.candidates[0].content.parts[0].text);
+
+                // Update Ticker
+                ticker.innerHTML = newsData.map(story => `🌍 ${story.category.toUpperCase()}: ${story.title}`).join(' | ');
+
+                // Build Articles
+                container.innerHTML = '';
+                newsData.forEach((story, index) => {
+                    const article = document.createElement('article');
+                    article.className = 'article-card';
+                    
+                    article.innerHTML = `
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-[10px] font-black uppercase tracking-tighter bg-blue-100 text-blue-700 px-2 py-1 rounded-full">${story.category}</span>
+                            <span class="text-xs text-slate-400 font-semibold">${story.date}</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-3 leading-tight">${story.title}</h2>
+                        <p class="text-xs text-slate-500 mb-4 font-medium uppercase tracking-wide">Reported by ${story.author}</p>
+                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">${story.summary}</p>
+                        <div class="pt-4 border-t border-slate-50 flex justify-between items-center">
+                            <a href="#" class="text-blue-600 text-sm font-black hover:text-blue-800 transition">READ FULL STORY →</a>
+                            <div class="flex gap-4 text-slate-300">
+                                <i class="far fa-bookmark hover:text-blue-600 transition cursor-pointer"></i>
+                                <i class="fas fa-share-nodes hover:text-blue-600 transition cursor-pointer"></i>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(article);
+                });
+
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="p-12 bg-white border-2 border-dashed border-red-100 rounded-2xl text-center">
+                        <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-satellite-dish text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Signal Interrupted</h3>
+                        <p class="text-slate-500 text-sm mb-6">We're having trouble connecting to the global news feed. This could be a local connection issue or a temporary outage.</p>
+                        <button onclick="fetchLiveNews()" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold text-sm hover:bg-blue-700 transition">
+                            Re-establish Connection
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        window.addEventListener('load', fetchLiveNews);
+    </script>
+</body>
+</html>

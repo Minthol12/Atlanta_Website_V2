@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Atlanta NewsCast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;900&display=swap');
+        
+        :root {
+            --primary: #003366;
+            --accent: #FFD700;
+        }
+
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .news-title { font-family: 'Playfair Display', serif; }
+
+        .nav-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .nav-drawer.open { transform: translateX(0); }
+        .overlay { transition: opacity 0.4s ease; opacity: 0; pointer-events: none; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+
+        /* News Ticker Animation */
+        .ticker-wrapper { overflow: hidden; white-space: nowrap; background: #002244; }
+        .ticker-content { display: inline-block; animation: ticker 40s linear infinite; color: white; padding: 10px 0; }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-[#003366] rounded-xl flex items-center justify-center text-white font-bold group-hover:rotate-12 transition-transform">
+                    <img src="Bee2.png" alt="A" class="w-8 h-8 object-contain">
+                </div>
+                <div>
+                    <span class="font-extrabold text-slate-900 tracking-tight block leading-none uppercase">Atlanta NewsCast</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">School District Media</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="sports.html" class="text-sm font-bold hover:text-[#003366]">Sports</a>
+                <a href="howto.html" class="text-sm font-bold hover:text-[#003366]">How-To</a>
+                <a href="student.html" class="text-sm font-bold hover:text-[#003366]">Student Section</a>
+                <a href="schoolnews.html" class="text-sm font-bold hover:text-[#003366]">School News</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="auth.html" class="hidden sm:block text-sm font-bold text-[#003366]">Log In</a>
+                <button onclick="toggleDrawer()" class="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="ticker-wrapper border-b border-white/10">
+        <div class="ticker-content text-sm font-bold">
+            <span class="mx-8">⚡️ BREAKING: Varsity Basketball Tryouts Moved to Thursday at 5 PM!</span>
+            <span class="mx-8">📸 New Photo Galleries are Live!</span>
+            <span class="mx-8">📣 Poll of the Week: Vote on next pep rally theme!</span>
+            <span class="mx-8">📚 Final Exam Schedules Posted on Student Section Page.</span>
+        </div>
+    </div>
+
+    <div id="overlay" onclick="toggleDrawer()" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
+    <div id="drawer" class="nav-drawer fixed top-0 right-0 h-full w-80 bg-white z-[60] shadow-2xl p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xs font-black uppercase tracking-widest text-slate-400">Menu</span>
+            <button onclick="toggleDrawer()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex flex-col gap-6">
+            <a href="index.html" class="text-3xl font-black text-[#003366]">Home</a>
+            <a href="sports.html" class="text-3xl font-black hover:text-[#003366]">Sports</a>
+            <a href="howto.html" class="text-3xl font-black hover:text-[#003366]">How-To</a>
+            <a href="student.html" class="text-3xl font-black hover:text-[#003366]">Student Section</a>
+            <a href="worldnews.html" class="text-3xl font-black hover:text-[#003366]">World News</a>
+            <hr class="border-slate-100 my-4">
+            <a href="auth.html" class="bg-[#003366] text-white text-center py-4 rounded-xl font-bold">Sign Up</a>
+        </div>
+    </div>
+
+    <header class="bg-[#003366] py-20 px-6 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10 text-center">
+            <span class="inline-block bg-[#FFD700] text-[#003366] px-4 py-1 rounded-md text-[10px] font-black uppercase tracking-widest mb-6">Atlanta C-3 News & Media</span>
+            <h1 class="text-5xl md:text-8xl text-white font-black mb-8 leading-tight">Welcome to the<br><span class="text-[]">NewsCast</span></h1>
+            <p class="text-blue-100 text-lg md:text-xl mb-10 leading-relaxed max-w-2xl mx-auto">Your official source for high school sports scores, school news, and student-produced content for the 2025-2026 school year.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#calendar-section" class="bg-white text-[#003366] px-10 py-5 rounded-2xl font-bold hover:bg-blue-50 transition-all shadow-xl">View School Calendar</a>
+                <div class="bg-white/10 backdrop-blur border border-white/20 p-4 rounded-2xl">
+                    <span class="block text-blue-200 text-xs font-bold uppercase tracking-wider">Days Until Graduation</span>
+                    <span id="countdown-display" class="text-white text-4xl font-black">000</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid lg:grid-cols-3 gap-12">
+            
+            <div class="lg:col-span-2 space-y-12">
+                
+                <section id="calendar-section" class="bg-white rounded-[2rem] border border-slate-200 p-8 md:p-12 shadow-sm">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-3xl font-black">2025-2026 Calendar</h2>
+                        <a href="calendar-2026.pdf" download class="text-xs font-black uppercase tracking-widest bg-slate-100 px-4 py-2 rounded-lg hover:bg-[#FFD700] transition-colors">Download PDF</a>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 p-4">
+                        <img src="school-events.png" alt="School Events" class="w-full h-auto rounded-xl shadow-lg">
+                    </div>
+                </section>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <article class="bg-white rounded-3xl border border-slate-200 p-8 hover:shadow-xl transition-all group">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-[#003366] mb-6 group-hover:bg-[#FFD700] transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-black mb-4">Top Story Headline 1</h3>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">A brief summary of your featured article. This area will highlight the most important news of the week.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-sm font-black text-[#003366]">Read More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
+                    </article>
+
+                    <article class="bg-white rounded-3xl border border-slate-200 p-8 hover:shadow-xl transition-all group">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-[#003366] mb-6 group-hover:bg-[#FFD700] transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-black mb-4">Top Story Headline 2</h3>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">A brief summary of your second featured article. Use these cards for major announcements.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-sm font-black text-[#003366]">Read More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
+                    </article>
+                </div>
+            </div>
+
+            <aside class="space-y-8">
+                <div class="bg-slate-900 rounded-3xl p-8 text-white">
+                    <h3 class="text-xl font-black mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#FFD700] rounded-full"></span> Trending
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="bg-white/10 hover:bg-[#FFD700] hover:text-[#003366] px-4 py-2 rounded-full text-xs font-bold transition-all">#StateChampionship</a>
+                        <a href="#" class="bg-white/10 hover:bg-[#FFD700] hover:text-[#003366] px-4 py-2 rounded-full text-xs font-bold transition-all">#LunchMenu</a>
+                        <a href="#" class="bg-white/10 hover:bg-[#FFD700] hover:text-[#003366] px-4 py-2 rounded-full text-xs font-bold transition-all">#SeniorSpotlight</a>
+                        <a href="#" class="bg-white/10 hover:bg-[#FFD700] hover:text-[#003366] px-4 py-2 rounded-full text-xs font-bold transition-all">#HornetPride</a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
+                    <h3 class="text-xl font-black mb-2">Student Poll</h3>
+                    <p class="text-slate-500 text-sm mb-6">What should be the theme of Prom?</p>
+                    <form class="space-y-3">
+                        <label class="flex items-center gap-3 p-4 border border-slate-100 rounded-2xl hover:bg-slate-50 cursor-pointer transition-colors">
+                            <input type="radio" name="poll" class="w-4 h-4 text-[#003366]">
+                            <span class="text-sm font-bold">Superheroes</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border border-slate-100 rounded-2xl hover:bg-slate-50 cursor-pointer transition-colors">
+                            <input type="radio" name="poll" class="w-4 h-4 text-[#003366]">
+                            <span class="text-sm font-bold">Neon 80's</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border border-slate-100 rounded-2xl hover:bg-slate-50 cursor-pointer transition-colors">
+                            <input type="radio" name="poll" class="w-4 h-4 text-[#003366]">
+                            <span class="text-sm font-bold">Hawaiian Luau</span>
+                        </label>
+                        <button class="w-full bg-[#003366] text-white py-4 rounded-2xl font-black mt-4 hover:shadow-lg transition-all">CAST VOTE</button>
+                    </form>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-20 pb-10 px-6 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-12 mb-16">
+                <div class="col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#003366] font-bold">A</div>
+                        <span class="text-2xl font-black uppercase tracking-tight">Atlanta C-3</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">Official News and Media outlet for the Atlanta C-3 School District. Empowering students through digital journalism and production.</p>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">Explore</h4>
+                    <ul class="space-y-4 text-sm font-bold">
+                        <li><a href="sports.html" class="hover:text-[#FFD700]">Athletics</a></li>
+                        <li><a href="schoolnews.html" class="hover:text-[#FFD700]">School News</a></li>
+                        <li><a href="student.html" class="hover:text-[#FFD700]">Student Life</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">Contact</h4>
+                    <p class="text-sm text-slate-400 mb-2">600 S. Atterberry Street</p>
+                    <p class="text-sm text-slate-400 mb-2">Atlanta, Missouri 63530</p>
+                    <p class="text-sm text-[#FFD700] font-bold mt-4">(P)(660) 239-4211</p>
+                    <p class="text-sm text-[#FFD700] font-bold mt-4">(F)(660) 239-4205</p>
+
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-10 text-center text-xs text-slate-500 font-bold uppercase tracking-widest">
+                &copy; 2025 Atlanta C-3 School District. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+    </script>
+    <script src="countdown.js"></script>
+</body>
+</html>

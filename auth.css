@@ -1,0 +1,361 @@
+/*
+ * Atlanta NewsCast Website - v3 Style Sheet
+ * Theme: High Contrast Dark Mode / Electric Cyan Accent
+ * Consolidated and Fixed for Login Slider
+ */
+
+/* 1. CSS Variables for Consistency (Default Dark Mode) */
+:root {
+    /* Backgrounds and Containers */
+    --color-background: #121212;      /* Near-black for the page background */
+    --color-container-bg: #1e1e1e;    /* Dark gray for content containers */
+    --color-card-bg: #282828;         /* Slightly lighter for cards/forms */
+    
+    /* Text Colors */
+    --color-primary-text: #F0F0F0;    /* Light text on dark background */
+    --color-secondary-text: #B0B0B0;  /* Subtler text color */
+    
+    /* Accent Colors (Electric Blue / Cyan) */
+    --color-headline-accent: #00E5FF; /* Electric Cyan for titles/accents */
+    --color-accent: #00BFFF;          /* Bright Blue for main buttons/links */
+    --color-accent-hover: #00A3D9;    /* Slightly darker blue for hover */
+    --color-border: #3A3A3A;          /* Darker border color for separation */
+    
+    /* Auth Specific Colors */
+    --color-auth-bg: #0d0d0d;
+    --color-toggle-gradient-start: #0077E6; 
+    --color-toggle-gradient-end: #00BFFF;
+}
+
+/* --- Light Theme Override --- */
+.light-theme {
+    /* backgrounds */
+    --color-background: #f0f0f0;
+    --color-container-bg: #ffffff;
+    --color-card-bg: #ffffff;
+
+    /* Text */
+    --color-primary-text: #333333;
+    --color-secondary-text: #666666;
+
+    /* Accents */
+    --color-headline-accent: #00bcd4; 
+    --color-accent: #ff9800;          
+    --color-accent-hover: #e68900;
+    --color-border: #cccccc;
+    
+    /* Auth Specific Colors */
+    --color-auth-bg: #e2e2e2;
+    --color-toggle-gradient-start: #ff9800; 
+    --color-toggle-gradient-end: #ffb74d;
+}
+
+/* 2. Global Resets and Body Styling */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Roboto', 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: var(--color-primary-text);
+    line-height: 1.6;
+}
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+}
+
+/* 3. Header, Navigation, etc. (Placeholder for all your other 1000+ lines of site-wide CSS) */
+/* ... (Your existing header, hero, main-content, news-card, etc. styles go here) ... */
+
+/* ================================================================= */
+/* 16. AUTHENTICATION SLIDER STYLES (The New Theme!)                 */
+/* ================================================================= */
+
+/* Specific styling for the body background only on the auth page */
+body.auth-page-body {
+    background-color: var(--color-auth-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    /* Use Montserrat for login elements for a modern feel */
+    font-family: 'Montserrat', sans-serif; 
+}
+
+.auth-container {
+    background-color: var(--color-card-bg);
+    border-radius: 15px; 
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    width: 768px; 
+    max-width: 100%;
+    min-height: 500px;
+    border: 1px solid var(--color-border);
+}
+
+/* Typography and Links */
+.auth-container h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--color-headline-accent);
+    margin-bottom: 20px;
+}
+.auth-container h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--color-primary-text);
+}
+.auth-container p, .auth-container span {
+    color: var(--color-secondary-text);
+    font-size: 0.9em;
+    line-height: 1.4;
+    letter-spacing: 0.1px;
+    margin: 10px 0;
+}
+.forgot-password {
+    color: var(--color-secondary-text);
+    font-size: 0.8em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.forgot-password:hover {
+    color: var(--color-accent);
+}
+
+/* Input Fields */
+.form-container input {
+    background-color: var(--color-container-bg);
+    border: 1px solid var(--color-border);
+    margin: 10px 0;
+    padding: 12px 15px;
+    font-size: 0.9em;
+    border-radius: 6px;
+    width: 100%;
+    outline: none;
+    color: var(--color-primary-text);
+    transition: border-color 0.3s;
+}
+.form-container input:focus {
+    border-color: var(--color-accent);
+}
+
+/* Forms Wrapper */
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+.form-container form {
+    background-color: var(--color-card-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+/* Social Icons */
+.social-icons {
+    margin: 15px 0 20px;
+}
+.social-icons a {
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    width: 40px;
+    height: 40px;
+    color: var(--color-secondary-text);
+    transition: border-color 0.3s, color 0.3s;
+}
+.social-icons a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+/* Sign In and Sign Up positioning */
+.sign-in {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+.sign-up {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Buttons */
+.auth-container button {
+    background-color: var(--color-accent);
+    color: var(--color-primary-text);
+    font-size: 0.8em;
+    padding: 12px 45px;
+    border: 1px solid var(--color-accent);
+    border-radius: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.auth-container button:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+}
+.auth-container button.hidden {
+    background-color: transparent;
+    border-color: var(--color-primary-text);
+}
+.auth-container button.hidden:hover {
+    background-color: var(--color-primary-text);
+    color: var(--color-auth-bg); 
+}
+
+/* -------------------------------------- */
+/* SLIDE ANIMATION LOGIC (Working Core)   */
+/* -------------------------------------- */
+
+.auth-container.active .sign-in {
+    transform: translateX(100%);
+}
+.auth-container.active .sign-up {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+@keyframes move {
+    0%, 49.99% { opacity: 0; z-index: 1; }
+    50%, 100% { opacity: 1; z-index: 5; }
+}
+
+/* Toggle/Greeting Panel */
+.toggle-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 15px; 
+    z-index: 1000;
+}
+/* Transition the toggle container to the left */
+.auth-container.active .toggle-container {
+    transform: translateX(-100%);
+}
+
+.toggle {
+    /* Apply the vibrant gradient accent */
+    background: linear-gradient(to right, var(--color-toggle-gradient-start), var(--color-toggle-gradient-end));
+    color: var(--color-background);
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+/* Shift the gradient panel to the right */
+.auth-container.active .toggle {
+    transform: translateX(50%);
+}
+
+.toggle-panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 px;
+    text-align: center;
+    top: 0;
+    transition: all 0.6s ease-in-out;
+    color: var(--color-background);
+}
+
+/* --- FIX FOR ILLEGIBLE TEXT ON BRIGHT BACKGROUND --- */
+/* Forces headings and paragraphs to use the darkest background color for high contrast */
+.toggle-panel h2,
+.toggle-panel p,
+.toggle-panel span {
+    color: var(--color-background) !important; 
+}
+/* -------------------------------------------------- */
+
+
+.toggle-left {
+    transform: translateX(-200%);
+}
+.auth-container.active .toggle-left {
+    transform: translateX(0);
+}
+
+.toggle-right {
+    right: 0;
+    transform: translateX(0);
+}
+.auth-container.active .toggle-right {
+    transform: translateX(200%);
+}
+
+
+/* 17. Professional Footer (Placeholder) */
+/* ... (Your existing footer styles go here) ... */
+
+
+/* 18. MOBILE RESPONSIVENESS (Consolidated Media Queries) */
+@media (max-width: 900px) {
+    /* ... (Your existing media queries for the main site) ... */
+}
+@media (max-width: 768px) {
+    /* Auth Page specific mobile adaptation */
+    .auth-container {
+        /* On small screens, stack the forms instead of sliding side-by-side */
+        min-height: 600px;
+        box-shadow: none;
+        border: none;
+    }
+    .form-container, .toggle-container {
+        width: 100%;
+        left: 0 !important;
+        opacity: 1 !important;
+        transform: none !important;
+        position: relative !important;
+        height: auto;
+    }
+    /* Hide the Sign Up form initially */
+    .sign-up {
+        display: none; 
+    }
+    .auth-container.active .sign-up {
+        display: flex;
+    }
+    .auth-container.active .sign-in {
+        display: none;
+    }
+    .toggle-container {
+        display: none; /* Hide the sliding panel on very small screens */
+    }
+}

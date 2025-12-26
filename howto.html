@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta NewsCast - How-To Guides</title>
+
+    <!-- External Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #f8fafc;
+            --color-surface: #ffffff;
+            --color-primary: #1e40af; /* Deep Royal Blue */
+            --color-accent: #3b82f6; /* Bright Blue */
+            --color-text: #1e293b;
+            --color-text-muted: #64748b;
+            --header-height: 70px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        .header {
+            height: var(--header-height);
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .logo-container a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .main-nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--color-primary);
+        }
+
+        .cta-button {
+            background: var(--color-primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--color-accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: white;
+            padding: 60px 5%;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: var(--color-text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 5%;
+        }
+
+        .section-label {
+            display: block;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+
+        /* Accordion Styling */
+        .accordion-item {
+            background: var(--color-surface);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid #edf2f7;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .accordion-item:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent);
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 24px;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .accordion-header span:first-child {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toggle-icon {
+            color: var(--color-text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .toggle-icon {
+            transform: rotate(180deg);
+            color: var(--color-accent);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+        }
+
+        .content-body {
+            padding: 0 24px 24px 64px;
+            color: var(--color-text);
+        }
+
+        .content-body h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+
+        .content-body ol {
+            padding-left: 18px;
+            margin-bottom: 20px;
+        }
+
+        .content-body li {
+            margin-bottom: 8px;
+            color: var(--color-text-muted);
+        }
+
+        /* Form Links */
+        .form-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .form-link:hover {
+            background: #e2e8f0;
+            color: var(--color-accent);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 80px;
+            padding: 40px 5%;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .footer .credit {
+            margin-top: 10px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-nav { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .content-body { padding-left: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Bee2.png" alt="Logo" class="header-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/1e40af/ffffff?text=B'">
+                <span>Atlanta NewsCast</span>
+            </a>
+        </div>
+        
+        <nav class="main-nav">
+            <a href="sports.html">Sports</a>
+            <a href="howto.html" class="active">How-To</a>
+            <a href="student.html">Students</a>
+            <a href="worldnews.html">World</a>
+            <a href="schoolnews.html">School</a>
+        </nav>
+
+        <a href="auth.html" class="cta-button">Portal Login</a>
+    </header>
+
+    <div class="hero">
+        <h1>How-To & Guides</h1>
+        <p>Everything you need to navigate school life, from technical setup to required athletic documentation.</p>
+    </div>
+
+    <div class="container">
+        <span class="section-label">Documentation Categories</span>
+
+        <div class="accordion-container">
+
+            <!-- Technology -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span><i class="fas fa-laptop"></i> Technology & Wi-Fi</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <h3>Campus Wi-Fi Setup</h3>
+                        <ol>
+                            <li>Open Wi-Fi settings on your device.</li>
+                            <li>Select <strong>ANC-Student</strong>.</li>
+                            <li>Login with your Student ID and Portal Password.</li>
+                            <li>If prompted, select "Trust" for the certificate.</li>
+                        </ol>
+                        <h3>Account Recovery</h3>
+                        <p>If you've forgotten your password, please visit the Media Center during advisory or use the automated reset tool on the student portal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cybersecurity -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span><i class="fas fa-shield-halved"></i> Cybersecurity Essentials</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <h3>Common Threats</h3>
+                        <p><strong>Phishing:</strong> Be wary of emails asking for login credentials. Check the sender domain carefully.</p>
+                        <p><strong>DDoS:</strong> Large scale traffic attacks meant to slow down networks. If the internet is crawling, IT is likely mitigating one.</p>
+                        <h3>Security Best Practices</h3>
+                        <ol>
+                            <li>Use 12+ character passwords with symbols.</li>
+                            <li>Never share your student login with anyone.</li>
+                            <li>Log out of public computers in the lab before leaving.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Athletics -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span><i class="fas fa-running"></i> Athletic Forms</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <h3>MSHSAA Requirements</h3>
+                        <p>All students participating in sports must have these forms on file with the Athletic Director.</p>
+                        
+                        <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-AnDoc-ALL.pdf" target="_blank" class="form-link">
+                            <i class="far fa-file-pdf"></i> Annual Participation Document
+                        </a>
+                        <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-PPE-MH-SSMB.pdf" target="_blank" class="form-link">
+                            <i class="far fa-file-pdf"></i> Physical Examination Form (PPE)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academics -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span><i class="fas fa-graduation-cap"></i> Academic Portals</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="content-body">
+                        <h3>Lumen Touch</h3>
+                        <p>Access your grades, attendance records, and meal account balance through the Lumen portal.</p>
+                        <a href="https://lumen.atlanta.k12.mo.us/lumen/signin" target="_blank" class="cta-button" style="display:inline-block; margin-top:10px;">Open Lumen</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Atlanta C-3 Schools | 600 S. Atterberry Street | Atlanta, Missouri 63530</p>
+        <p class="credit">Atlanta NewsCast V2</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                
+                // Optional: Close others when opening one
+                // document.querySelectorAll('.accordion-item').forEach(other => {
+                //    if (other !== item) other.classList.remove('active');
+                // });
+
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta C-3 Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#003366] min-h-screen flex items-center justify-center p-6">
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden p-10">
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-[#003366] rounded-2xl mx-auto flex items-center justify-center text-white text-3xl font-black mb-4 shadow-lg">A</div>
+            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Hornet Portal</h2>
+            <p class="text-slate-500 font-semibold tracking-wide uppercase text-xs mt-2">Staff & Student Access</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); window.location.href='index.html'" class="space-y-6">
+            <div>
+                <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Username</label>
+                <input type="text" class="w-full bg-slate-100 border-none rounded-xl p-4 text-slate-900 focus:ring-2 focus:ring-blue-500 transition-all outline-none" placeholder="jdoe25">
+            </div>
+            <div>
+                <label class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Password</label>
+                <input type="password" class="w-full bg-slate-100 border-none rounded-xl p-4 text-slate-900 focus:ring-2 focus:ring-blue-500 transition-all outline-none" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-slate-900 text-white font-black py-4 rounded-xl uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95">
+                Sign In
+            </button>
+        </form>
+        
+        <div class="mt-8 text-center">
+            <a href="index.html" class="text-xs font-bold text-slate-400 uppercase tracking-widest hover:text-[#003366] transition-colors">Return to Directory</a>
+        </div>
+    </div>
+</body>
+</html>

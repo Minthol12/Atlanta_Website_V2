@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta NewsCast V2 - Student Section</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --atlanta-blue: #003399; /* Deep Blue for contrast */
+            --atlanta-white: #ffffff;
+            --light-bg: #f4f7f9;
+            --text-dark: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        .hornet-hub-hero {
+            background: var(--atlanta-blue);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 5px solid #002266;
+        }
+
+        .student-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 2px solid #e0e0e0;
+            padding: 25px;
+            height: 100%;
+        }
+
+        .accent-text-blue {
+            color: var(--atlanta-blue);
+            font-weight: bold;
+        }
+
+        /* Bell Schedule Table Styling */
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .schedule-row:last-child {
+            border-bottom: none;
+        }
+
+        .lunch-highlight {
+            background: #e6f0ff;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            color: var(--atlanta-blue);
+        }
+
+        /* Form Link Styling */
+        .mshsaa-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            display: block;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 5px solid var(--atlanta-blue);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .mshsaa-link:hover {
+            background: #f0f4ff;
+        }
+
+        .tool-icon-btn {
+            text-decoration: none;
+            background: var(--atlanta-blue);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white !important;
+            transition: transform 0.2s;
+        }
+
+        .tool-icon-btn:hover {
+            transform: translateY(-3px);
+            background: #002266;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Bee2.png" alt="Atlanta NewsCast Logo" class="header-logo">
+                <span class="site-title-text">Atlanta NewsCast</span>
+            </a>
+        </div>
+        
+        <nav class="main-nav">
+            <a href="sports.html">Sports</a>
+            <a href="howto.html">How-To</a>
+            <a href="student.html" class="active">Student Section</a>
+            <a href="worldnews.html">World News</a>
+            <a href="schoolnews.html">School News</a>
+        </nav>
+    </header>
+
+    <div class="hornet-hub-hero">
+        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">The <span style="text-decoration: underline;">Hornet Hub</span></h1>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Official Student Resources for Atlanta C-3</p>
+    </div>
+
+    <div class="main-content" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+        
+        <div class="student-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+            
+            <!-- COLUMN 1: BELL SCHEDULE -->
+            <div class="student-card">
+                <h2 style="color: var(--atlanta-blue); margin-bottom: 20px; border-bottom: 2px solid var(--atlanta-blue); padding-bottom: 10px;">
+                    <i class="fas fa-clock"></i> Bell Schedule
+                </h2>
+                <div class="schedule-container">
+                    <div class="schedule-row"><span>1st Hour</span> <span>8:15 - 9:07</span></div>
+                    <div class="schedule-row"><span>2nd Hour</span> <span>9:10 - 9:58</span></div>
+                    <div class="schedule-row"><span>3rd Hour</span> <span>10:00 - 10:46</span></div>
+                    <div class="schedule-row"><span>4th Hour</span> <span>10:48 - 11:38</span></div>
+                    <div class="schedule-row lunch-highlight"><span>LUNCH</span> <span>11:40 - 12:00</span></div>
+                    <div class="schedule-row"><span>5th Hour</span> <span>12:00 - 12:46</span></div>
+                    <div class="schedule-row"><span>6th Hour</span> <span>12:48 - 1:38</span></div>
+                    <div class="schedule-row"><span>7th Hour</span> <span>1:40 - 2:28</span></div>
+                    <div class="schedule-row" style="font-weight: bold;"><span>8th Hour</span> <span>2:30 - 3:15</span></div>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #555; text-align: center;"><em>School ends at 3:15 PM</em></p>
+            </div>
+
+            <!-- COLUMN 2: FORMS & ATHLETICS -->
+            <div class="student-card">
+                <h2 style="color: var(--atlanta-blue); margin-bottom: 20px; border-bottom: 2px solid var(--atlanta-blue); padding-bottom: 10px;">
+                    <i class="fas fa-file-signature"></i> Athletics & Forms
+                </h2>
+                <div class="forms-container">
+                    <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-AnDoc-ALL.pdf" target="_blank" class="mshsaa-link">
+                        <strong style="display: block;">Annual Requirements Form</strong>
+                        <small style="color: #666;">Sports Authorization (Every Year)</small>
+                    </a>
+                    <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-PPE-MH-SSMB.pdf" target="_blank" class="mshsaa-link">
+                        <strong style="display: block;">Sports Physical Form (PPE)</strong>
+                        <small style="color: #666;">Valid for 2 Years</small>
+                    </a>
+                    <a href="https://www.mshsaa.org/resources/PDF/A%20Parent%27s%20-%20Guardian%27s%20Guide%20to%20Concussion%20-%20April%202019.pdf" target="_blank" class="mshsaa-link">
+                        <strong style="display: block;">Concussion Guide</strong>
+                        <small style="color: #666;">Parent/Guardian Essential Reading</small>
+                    </a>
+                </div>
+                
+                <h3 style="margin-top: 25px; margin-bottom: 10px;">Grades & Portal</h3>
+                <a href="https://lumen.atlanta.k12.mo.us/lumen/signin" target="_blank" class="tool-icon-btn" style="display: block; padding: 15px;">
+                    <i class="fas fa-user-graduate"></i> Login to Lumen Portal
+                </a>
+            </div>
+
+            <!-- COLUMN 3: SPIRIT & TOOLS -->
+            <div class="student-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h2 style="color: var(--atlanta-blue); margin-bottom: 20px; border-bottom: 2px solid var(--atlanta-blue); padding-bottom: 10px;">
+                        <i class="fas fa-star"></i> Hornet Spirit
+                    </h2>
+                    <!-- Spirit Box: Blue and White -->
+                    <div style="background: var(--atlanta-blue); color: white; padding: 25px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
+                        <h3 style="color: white; margin-bottom: 10px;">GO HORNETS!</h3>
+                        <p style="font-size: 1.1rem;">Blue & White Forever</p>
+                        <hr style="border-color: rgba(255,255,255,0.3); margin: 15px 0;">
+                        <p style="font-size: 0.9rem;">Check the <a href="sports.html" style="color: white; text-decoration: underline;">Sports Page</a> for game times.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 15px;">Student Toolbox</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <a href="howto.html" class="tool-icon-btn">
+                            <i class="fas fa-wifi"></i><br><span style="font-size: 0.8rem;">WiFi Help</span>
+                        </a>
+                        <a href="#" class="tool-icon-btn">
+                            <i class="fas fa-book"></i><br><span style="font-size: 0.8rem;">Library</span>
+                        </a>
+                        <a href="#" class="tool-icon-btn">
+                            <i class="fas fa-bus"></i><br><span style="font-size: 0.8rem;">Bus Routes</span>
+                        </a>
+                        <a href="#" class="tool-icon-btn">
+                            <i class="fas fa-heart"></i><br><span style="font-size: 0.8rem;">Counselor</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="main-footer" style="margin-top: 50px; background: #333; color: white; padding: 30px; text-align: center;">
+        <p>Atlanta C-3 Schools * 600 S. Atterberry Street * Atlanta, Missouri 63530</p>
+        <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px;">Made by Zayne ;)</p>
+    </footer>
+
+</body>
+</html>

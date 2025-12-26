@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta C-3 | Manage Articles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .nav-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .nav-drawer.open { transform: translateX(0); }
+        .overlay { transition: opacity 0.4s ease; opacity: 0; pointer-events: none; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+        .status-pill-published { background: #dcfce7; color: #166534; }
+        .status-pill-draft { background: #f1f5f9; color: #475569; }
+        .article-row:hover { background-color: #f8fafc; }
+        
+        /* Modal Animation */
+        .modal { transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0; pointer-events: none; transform: scale(0.95); }
+        .modal.open { opacity: 1; pointer-events: auto; transform: scale(1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-[#003366] rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                <span class="font-extrabold text-slate-900 tracking-tight">ATLANTA C-3</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-600 uppercase tracking-wider">
+                    <a href="sports.html" class="hover:text-[#003366]">Sports</a>
+                    <a href="worldnews.html" class="hover:text-[#003366]">World News</a>
+                    <a href="schoolnews.html" class="hover:text-[#003366]">School News</a>
+                </div>
+                <button onclick="toggleDrawer()" class="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-slate-800 transition-all">
+                    <span>EXPLORE</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M12 12h8m-8 6h8"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side Drawer -->
+    <div id="overlay" onclick="toggleDrawer()" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
+    <div id="drawer" class="nav-drawer fixed top-0 right-0 h-full w-80 bg-white z-[60] shadow-2xl p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xs font-black uppercase tracking-widest text-slate-400">Menu</span>
+            <button onclick="toggleDrawer()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex flex-col gap-8">
+            <a href="index.html" class="group"><span class="text-2xl font-extrabold block group-hover:text-[#003366]">Admin Hub</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Management</span></a>
+            <a href="student.html" class="group"><span class="text-2xl font-extrabold block group-hover:text-[#003366]">Student Hub</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Resources</span></a>
+            <a href="howto.html" class="group"><span class="text-2xl font-extrabold block group-hover:text-[#003366]">How-To</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Guides</span></a>
+            <hr class="border-slate-100">
+            <a href="#staff-directory" class="group"><span class="text-xl font-bold block group-hover:text-[#003366]">Staff Directory</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Contact Info</span></a>
+        </div>
+    </div>
+
+    <header class="bg-[#003366] text-white pt-12 pb-20 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <nav class="flex items-center gap-2 text-blue-200 text-xs font-bold uppercase tracking-widest mb-4">
+                    <a href="index.html" class="hover:text-white">Admin</a>
+                    <span>/</span>
+                    <span class="text-white">Articles</span>
+                </nav>
+                <h1 class="text-4xl font-extrabold uppercase">Manage Articles</h1>
+            </div>
+            <button onclick="openArticleModal()" class="bg-white text-[#003366] px-6 py-3 rounded-xl font-black text-sm uppercase tracking-tighter hover:bg-blue-50 transition-all flex items-center gap-2 shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                New Article
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 -mt-8 mb-20">
+        <!-- Filters & Search -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-xl w-full md:w-96">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input type="text" id="searchInput" oninput="filterArticles()" placeholder="Search articles..." class="bg-transparent border-none focus:ring-0 text-sm w-full">
+            </div>
+            <div class="flex items-center gap-3">
+                <select id="categoryFilter" onchange="filterArticles()" class="bg-white border border-slate-200 text-sm font-bold py-2 px-4 rounded-xl focus:ring-[#003366]">
+                    <option value="all">All Categories</option>
+                    <option value="SPORTS">Sports</option>
+                    <option value="SCHOOL NEWS">School News</option>
+                    <option value="ANNOUNCEMENTS">Announcements</option>
+                </select>
+                <select id="statusFilter" onchange="filterArticles()" class="bg-white border border-slate-200 text-sm font-bold py-2 px-4 rounded-xl focus:ring-[#003366]">
+                    <option value="all">Any Status</option>
+                    <option value="Published">Published</option>
+                    <option value="Draft">Draft</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Articles Table -->
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+            <table class="w-full text-left border-collapse" id="articlesTable">
+                <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200">
+                        <th class="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Article Title</th>
+                        <th class="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Category</th>
+                        <th class="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Author</th>
+                        <th class="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Status</th>
+                        <th class="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100" id="articlesBody">
+                    <!-- JavaScript will populate this -->
+                </tbody>
+            </table>
+            
+            <div id="noResults" class="hidden p-20 text-center">
+                <p class="text-slate-400 font-bold">No articles found matching your criteria.</p>
+            </div>
+
+            <div class="p-6 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+                <span id="articleCount" class="text-sm font-bold text-slate-500 uppercase">Showing 0 articles</span>
+                <div class="flex gap-2">
+                    <button class="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold hover:bg-slate-50">Previous</button>
+                    <button class="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold hover:bg-slate-50">Next</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for New/Edit Article -->
+    <div id="articleModalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[70] hidden transition-opacity"></div>
+    <div id="articleModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-white rounded-3xl z-[80] shadow-2xl p-8 modal">
+        <div class="flex justify-between items-center mb-6">
+            <h2 id="modalTitle" class="text-2xl font-black uppercase text-slate-900">New Article</h2>
+            <button onclick="closeArticleModal()" class="text-slate-400 hover:text-slate-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <form id="articleForm" class="space-y-4">
+            <input type="hidden" id="editIndex">
+            <div>
+                <label class="block text-xs font-black uppercase text-slate-400 mb-1">Title</label>
+                <input type="text" id="formTitle" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#003366] outline-none">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-black uppercase text-slate-400 mb-1">Category</label>
+                    <select id="formCategory" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#003366] outline-none">
+                        <option value="SPORTS">Sports</option>
+                        <option value="SCHOOL NEWS">School News</option>
+                        <option value="ANNOUNCEMENTS">Announcements</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-black uppercase text-slate-400 mb-1">Status</label>
+                    <select id="formStatus" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#003366] outline-none">
+                        <option value="Published">Published</option>
+                        <option value="Draft">Draft</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-black uppercase text-slate-400 mb-1">Author</label>
+                <input type="text" id="formAuthor" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#003366] outline-none">
+            </div>
+            <div class="pt-4">
+                <button type="submit" class="w-full bg-[#003366] text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-800 transition-all">Save Article</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Initial Data
+        let articles = [
+            { title: "Basketball Season Opener Dominates Rivals", category: "SPORTS", author: "Coach Harris", status: "Published", date: "Nov 25, 2025", slug: "basketball-opener-2025" },
+            { title: "New STEM Lab Groundbreaking Ceremony", category: "SCHOOL NEWS", author: "Admin Smith", status: "Draft", date: "Nov 24, 2025", slug: "stem-lab-groundbreak" },
+            { title: "E-Sports Squad Enters Regional Finals", category: "SPORTS", author: "Z. Bryant", status: "Published", date: "Nov 22, 2025", slug: "esports-regional-finals" }
+        ];
+
+        function toggleDrawer() { 
+            document.getElementById('drawer').classList.toggle('open'); 
+            document.getElementById('overlay').classList.toggle('open'); 
+        }
+
+        function renderArticles(data = articles) {
+            const body = document.getElementById('articlesBody');
+            const noResults = document.getElementById('noResults');
+            const countDisplay = document.getElementById('articleCount');
+            
+            body.innerHTML = '';
+            
+            if (data.length === 0) {
+                noResults.classList.remove('hidden');
+                countDisplay.innerText = "Showing 0 articles";
+                return;
+            }
+            
+            noResults.classList.add('hidden');
+            countDisplay.innerText = `Showing ${data.length} of ${articles.length} articles`;
+
+            data.forEach((article, index) => {
+                const originalIndex = articles.indexOf(article);
+                const row = document.createElement('tr');
+                row.className = 'article-row transition-colors';
+                row.innerHTML = `
+                    <td class="px-6 py-4">
+                        <span class="font-bold text-slate-900 block">${article.title}</span>
+                        <span class="text-xs text-slate-400">slug: ${article.slug}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-xs font-bold px-2 py-1 ${getCategoryClass(article.category)} rounded-md">${article.category}</span>
+                    </td>
+                    <td class="px-6 py-4 text-sm font-medium text-slate-600">${article.author}</td>
+                    <td class="px-6 py-4">
+                        <span class="status-pill-${article.status.toLowerCase()} text-[10px] font-black px-2 py-1 rounded-full uppercase">${article.status}</span>
+                    </td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <button onclick="editArticle(${originalIndex})" class="text-slate-400 hover:text-[#003366] p-1 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        </button>
+                        <button onclick="deleteArticle(${originalIndex})" class="text-slate-400 hover:text-red-600 p-1 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </td>
+                `;
+                body.appendChild(row);
+            });
+        }
+
+        function getCategoryClass(cat) {
+            switch(cat) {
+                case 'SPORTS': return 'bg-blue-50 text-blue-700';
+                case 'SCHOOL NEWS': return 'bg-amber-50 text-amber-700';
+                case 'ANNOUNCEMENTS': return 'bg-purple-50 text-purple-700';
+                default: return 'bg-slate-50 text-slate-700';
+            }
+        }
+
+        function filterArticles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const catFilter = document.getElementById('categoryFilter').value;
+            const statFilter = document.getElementById('statusFilter').value;
+
+            const filtered = articles.filter(a => {
+                const matchesSearch = a.title.toLowerCase().includes(searchTerm) || a.author.toLowerCase().includes(searchTerm);
+                const matchesCat = catFilter === 'all' || a.category === catFilter;
+                const matchesStat = statFilter === 'all' || a.status === statFilter;
+                return matchesSearch && matchesCat && matchesStat;
+            });
+
+            renderArticles(filtered);
+        }
+
+        // Modal Logic
+        function openArticleModal() {
+            document.getElementById('modalTitle').innerText = "New Article";
+            document.getElementById('articleForm').reset();
+            document.getElementById('editIndex').value = "";
+            showModal();
+        }
+
+        function closeArticleModal() {
+            document.getElementById('articleModal').classList.remove('open');
+            document.getElementById('articleModalOverlay').classList.add('hidden');
+        }
+
+        function showModal() {
+            document.getElementById('articleModalOverlay').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('articleModal').classList.add('open');
+            }, 10);
+        }
+
+        function editArticle(index) {
+            const article = articles[index];
+            document.getElementById('modalTitle').innerText = "Edit Article";
+            document.getElementById('editIndex').value = index;
+            document.getElementById('formTitle').value = article.title;
+            document.getElementById('formCategory').value = article.category;
+            document.getElementById('formStatus').value = article.status;
+            document.getElementById('formAuthor').value = article.author;
+            showModal();
+        }
+
+        function deleteArticle(index) {
+            if (confirm("Are you sure you want to delete this article? This action cannot be undone.")) {
+                articles.splice(index, 1);
+                renderArticles();
+            }
+        }
+
+        document.getElementById('articleForm').onsubmit = function(e) {
+            e.preventDefault();
+            const index = document.getElementById('editIndex').value;
+            const articleData = {
+                title: document.getElementById('formTitle').value,
+                category: document.getElementById('formCategory').value,
+                status: document.getElementById('formStatus').value,
+                author: document.getElementById('formAuthor').value,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                slug: document.getElementById('formTitle').value.toLowerCase().replace(/ /g, '-')
+            };
+
+            if (index === "") {
+                articles.unshift(articleData);
+            } else {
+                articles[index] = articleData;
+            }
+
+            closeArticleModal();
+            renderArticles();
+        };
+
+        // Initialize
+        window.onload = () => renderArticles();
+    </script>
+</body>
+</html>

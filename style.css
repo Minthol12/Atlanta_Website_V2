@@ -1,0 +1,2008 @@
+/*
+ * ========================================
+ * COMPLETE STYLE.CSS (Unified Black & Blue Theme)
+ * ========================================
+ */
+
+/* 1. Global Variables & Reset */
+:root {
+    /* Color Palette */
+    --color-primary-bg: #1e1e1e; /* Main Dark Background */
+    --color-card-bg: #282828; /* Card Background */
+    --color-secondary-bg: #333333; /* Slightly Lighter BG for contrast */
+    --color-accent: #007bff; /* Primary Blue Accent */
+    --color-secondary: #0056b3; /* Darker Blue for Headers/Borders */
+    --color-primary-text: #e0e0e0; /* Light Text */
+    --color-text-light: #ffffff; /* White Text */
+    --color-text-muted: #aaaaaa; /* Muted/Gray Text */
+    --color-border: #444; /* Border color */
+    
+    /* Semantic Colors for Admin Actions */
+    --color-action-edit: #ffc107; /* Yellow for Edit/Modify */
+    --color-action-delete: #dc3545; /* Red for Delete/Destructive */
+    --color-action-success: #28a745; /* Green for Success/Published */
+    --color-headline-accent: #17a2b8; /* Cyan/Teal for secondary headlines/status */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-text);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--color-secondary);
+}
+
+.accent-text {
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+h1, h2, h3 {
+    color: var(--color-text-light);
+    margin-bottom: 0.5em;
+}
+
+.card {
+    background-color: var(--color-card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin-bottom: 20px;
+}
+
+
+/* 2. Unified Admin Header & Navigation (Applied to all admin pages) */
+
+/* The main header container that holds everything (links + user info) */
+.admin-header-nav {
+    background-color: #222;
+    padding: 15px 30px;
+    border-bottom: 3px solid var(--color-accent);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.admin-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Nav Links Group */
+.admin-nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.admin-nav-links a {
+    color: var(--color-primary-text);
+    text-decoration: none;
+    padding: 8px 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+.admin-nav-links a:hover {
+    color: var(--color-accent);
+}
+
+.admin-nav-links a.active-link {
+    color: var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    font-weight: bold;
+}
+
+/* User Info/Logout Group */
+.admin-user-info {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-muted);
+}
+
+.admin-user-info .logout-btn {
+    background-color: var(--color-action-delete); /* Red logout button */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    margin-left: 20px;
+}
+
+.admin-user-info .logout-btn:hover {
+    background-color: #a02030;
+}
+
+
+/* 3. News Ticker (Used for the main site) */
+.news-ticker {
+    background-color: var(--color-accent);
+    color: var(--color-text-light);
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.95em;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.news-ticker span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker-move 30s linear infinite;
+}
+
+@keyframes ticker-move {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+
+/* 4. Footer (Used for the main site) */
+.main-footer {
+    background-color: #111;
+    padding: 20px 30px;
+    text-align: center;
+    font-size: 0.9em;
+    border-top: 3px solid var(--color-secondary);
+    margin-top: 50px;
+}
+
+/* 5. Main Content Structure (General) */
+.main-content, .admin-content-area, .content-container {
+    padding: 30px; 
+    max-width: 1400px; 
+    margin: 0 auto;
+}
+
+.dashboard-main {
+    max-width: 1200px;
+    margin: 50px auto; /* Increased vertical margin */
+}
+
+.dashboard-main h1 {
+    font-size: 3.2em;
+    color: var(--color-accent); /* Use primary blue for the main title */
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid var(--color-secondary-bg);
+}
+
+.dashboard-main .sub-text {
+    color: var(--color-text-muted);
+    font-size: 1.1em;
+    margin-bottom: 40px;
+}
+
+/* Quick Action Blocks Grid (The four cards) */
+.quick-action-grid {
+    display: grid;
+    /* Ensures minimum width for blocks and responsiveness */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    gap: 25px; /* Increased gap */
+    margin-bottom: 50px;
+}
+
+.quick-action-grid .action-block {
+    background-color: var(--color-card-bg);
+    padding: 25px; /* Increased padding */
+    border-radius: 10px; /* Slightly more rounded corners */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+    border-left: 6px solid var(--color-headline-accent); /* Cyan accent line */
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.quick-action-grid .action-block:hover {
+    background-color: #313131;
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+.action-block h3 {
+    color: var(--color-text-light); /* White/Light text for the main label */
+    font-size: 1.35em;
+    margin-bottom: 5px;
+}
+
+.action-block p {
+    color: var(--color-text-muted);
+    font-size: 0.95em;
+}
+
+.action-block i {
+    font-size: 1.8em; /* Larger icons */
+    margin-right: 15px;
+    color: var(--color-headline-accent); /* Use Cyan for icons */
+}
+
+/* Admin Tools Section */
+.admin-tools-section {
+    margin-top: 40px;
+    background-color: var(--color-card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.admin-tools-section h2 {
+    font-size: 2em;
+    color: var(--color-accent);
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--color-secondary);
+    margin-bottom: 25px;
+}
+
+.admin-tools-section a {
+    display: block;
+    color: var(--color-headline-accent); /* Cyan links */
+    padding: 12px 0;
+    font-size: 1.1em;
+    border-bottom: 1px solid var(--color-secondary-bg);
+    transition: color 0.2s, padding-left 0.2s;
+}
+
+.admin-tools-section a:hover {
+    color: var(--color-accent);
+    padding-left: 10px; /* Slide effect on hover */
+}
+
+.admin-tools-section .health-check-item {
+    padding: 12px 0;
+    color: var(--color-primary-text);
+    border-bottom: 1px solid var(--color-secondary-bg);
+    font-size: 1.1em;
+}
+
+.admin-tools-section .view-site-btn {
+    background-color: var(--color-action-success); /* Green for "Go Live" or "View" */
+    color: var(--color-text-light);
+    padding: 18px;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 6px;
+    margin-top: 30px;
+    font-size: 1.2em;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.admin-tools-section .view-site-btn:hover {
+    background-color: #1e8736;
+    transform: scale(1.02);
+}
+
+
+/* ========================================
+ * ADMIN CALENDAR/SCHEDULES STYLES (image_ebb0f9.png)
+ * ======================================== */
+
+.calendar-update-panel {
+    max-width: 800px;
+    margin: 50px auto 0;
+}
+
+.calendar-update-panel h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    color: var(--color-text-light);
+}
+
+.calendar-update-panel .intro-text {
+    color: var(--color-text-muted);
+    margin-bottom: 30px;
+}
+
+/* Card for Upload Section */
+.upload-section {
+    background-color: var(--color-card-bg);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin-bottom: 40px;
+}
+
+.upload-section h2 {
+    color: var(--color-accent);
+    font-size: 1.5em;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-secondary-bg);
+    margin-bottom: 20px;
+}
+
+.upload-section p {
+    color: var(--color-text-muted);
+    margin-bottom: 15px;
+}
+
+/* Custom File Upload Styling (if needed - depends on browser) */
+.file-upload-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Main Action Button */
+.upload-btn {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.upload-btn:hover {
+    background-color: var(--color-secondary);
+}
+
+
+/* News Ticker Edit Section */
+.ticker-edit-section {
+    /* Using .card style */
+}
+
+.ticker-edit-section h2 {
+    color: var(--color-headline-accent); /* Use a secondary highlight color */
+    font-size: 1.5em;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-secondary-bg);
+    margin-bottom: 20px;
+}
+
+.ticker-edit-section textarea {
+    background-color: #333;
+    color: var(--color-primary-text);
+    border: 1px solid #444;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+    min-height: 150px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-top: 10px;
+}
+
+/* Example text style */
+.ticker-edit-section .example-text {
+    font-size: 0.9em;
+    color: var(--color-text-muted);
+}
+
+
+/* ========================================
+ * ARTICLE MANAGEMENT STYLES (from previous step)
+ * ======================================== */
+
+.admin-content-area {
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Article Creation Form */
+.create-article-form {
+    background-color: var(--color-card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin-bottom: 40px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    color: var(--color-text-muted);
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1em;
+}
+
+.create-article-form input[type="text"],
+.create-article-form select,
+.create-article-form textarea {
+    background-color: #333;
+    color: var(--color-primary-text);
+    border: 1px solid #444;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.create-article-form textarea {
+    min-height: 200px;
+    resize: vertical;
+}
+
+.publish-btn {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+/* Existing Articles Table */
+.existing-articles-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    font-size: 1em;
+    text-align: left;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.existing-articles-table thead {
+    background-color: var(--color-secondary);
+}
+
+.existing-articles-table th {
+    color: var(--color-text-light);
+    padding: 12px 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.existing-articles-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #3d3d3d;
+    color: var(--color-primary-text);
+    background-color: var(--color-card-bg);
+}
+
+.existing-articles-table tbody tr:nth-child(even) {
+    background-color: #333333;
+}
+
+.existing-articles-table tbody tr:hover {
+    background-color: #444444;
+}
+
+/* Status Column Badges */
+.status-published {
+    background-color: var(--color-action-success); /* Green */
+}
+
+.status-draft {
+    background-color: var(--color-action-edit); /* Yellow */
+    color: #333;
+}
+
+.status-published, .status-draft {
+    color: white; /* Applies to both, but overridden by yellow's #333 */
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* ACTION BUTTONS: EDIT & DELETE */
+.existing-articles-table .action-btn {
+    background: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.existing-articles-table .edit-btn {
+    border: 1px solid var(--color-action-edit);
+    color: var(--color-action-edit);
+}
+
+.existing-articles-table .edit-btn:hover {
+    background-color: var(--color-action-edit);
+    color: white;
+}
+
+.existing-articles-table .delete-btn {
+    border: 1px solid var(--color-action-delete);
+    color: var(--color-action-delete);
+}
+
+.existing-articles-table .delete-btn:hover {
+    background-color: var(--color-action-delete);
+    color: white;
+}
+
+.about-page {
+    /* Base Colors: Deep Forest Black/Cyber Black */
+    --theme-bg-dark: #070707;       /* Near Black */
+    --theme-card-bg: rgba(15, 15, 15, 0.9); /* Semi-transparent dark card */
+    
+    /* Accent Colors: Hacker/FSociety Neon */
+    --theme-neon-primary: #8a2be2;  /* Blue-Violet (Favorite Purple) */
+    --theme-neon-secondary: #00ff00; /* Neon Green (Mr. Robot/Hacker Vibe) */
+    --theme-neon-pink: #ff00ff;     /* Neon Pink/Magenta */
+    --theme-neon-blue: #00ffff;     /* Cyan/Aqua (Blue accent) */
+
+    /* Background Image: The Moody Forest */
+    background-color: var(--theme-bg-dark);
+    background-image: url('forest-cyber.png'); /* CHANGE THIS to your saved image path */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    overflow-x: hidden; 
+}
+
+/* Apply a dark, semi-transparent overlay to keep text legible */
+.about-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 80% Black Overlay */
+    z-index: -1;
+}
+
+/* 1. Header & Navigation Override */
+
+.about-page .main-header {
+    background-color: rgba(10, 10, 10, 0.95); /* Dark, slight transparency */
+    border-bottom: 2px solid var(--theme-neon-primary); /* Purple border */
+}
+
+.about-page .site-logo {
+    color: var(--theme-neon-pink); /* Neon Pink Logo */
+}
+
+.about-page .main-nav a {
+    color: var(--color-text-light);
+}
+
+.about-page .main-nav a.active {
+    color: var(--theme-neon-blue); /* Cyan/Blue highlight */
+    border-bottom-color: var(--theme-neon-blue);
+}
+
+.about-page .main-nav a:hover {
+    color: var(--theme-neon-primary); /* Purple hover effect */
+    border-bottom-color: var(--theme-neon-primary);
+}
+
+
+/* 2. Main Content & Structure */
+
+.about-page .content-container {
+    max-width: 1000px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.about-page h1 {
+    /* Title: Bold and prominent, like a data stream */
+    font-family: 'Consolas', monospace; 
+    font-size: 3em;
+    color: var(--theme-neon-pink);
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.7); /* Strong neon pink glow */
+    margin-bottom: 30px;
+}
+
+.about-page h2 {
+    color: var(--theme-neon-primary);
+    border-bottom: 1px solid var(--theme-neon-primary); /* Purple underline */
+    padding-bottom: 5px;
+    margin-top: 1.5em;
+    font-weight: 700;
+}
+
+/* 3. Card Styling (Focus on high contrast against the dark background) */
+.about-page .card {
+    background-color: var(--theme-card-bg); /* Semi-transparent dark card */
+    border: 1px solid var(--theme-neon-blue); /* Cyan border */
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4); /* Cyan glow shadow */
+    backdrop-filter: blur(5px); /* Optional: Adds a slight blur to the background image visible through the card */
+}
+
+/* 4. Text & Lists */
+
+.about-page ul {
+    list-style: none;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+.about-page ul li {
+    position: relative;
+    margin-bottom: 8px;
+    color: var(--color-primary-text);
+}
+
+/* Custom list bullet point: Green Hacker Checkmark */
+.about-page ul li::before {
+    content: '>> '; 
+    position: absolute;
+    left: -20px;
+    font-weight: bold;
+    color: var(--theme-neon-secondary); /* Neon Green bullet */
+}
+
+.about-page ul li strong {
+    color: var(--theme-neon-pink); /* Pink emphasis for key terms */
+}
+
+/* 5. Developer Section (Zayne) */
+
+.about-page .accent-text {
+    color: var(--theme-neon-pink); /* Pink for your name */
+}
+
+/* Profile Photo Placeholder - Thematic Circle */
+.about-page .card > div:first-of-type > div:first-child {
+    /* Abstract Cyber-Forest look */
+    background: radial-gradient(circle, #00ff00 0%, #8a2be2 50%, #070707 100%);
+    border: 3px solid var(--theme-neon-pink); /* Pink outline */
+    box-shadow: 0 0 20px var(--theme-neon-pink);
+    transition: transform 0.3s;
+}
+
+.about-page .card > div:first-of-type > div:first-child:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--theme-neon-secondary); /* Green hover glow */
+}
+
+.about-page h3 {
+    color: var(--theme-neon-blue); /* Cyan/Blue for titles */
+    margin-bottom: 5px;
+}
+
+/* 6. Footer Override */
+.about-page .main-footer {
+    background-color: rgba(10, 10, 10, 0.95);
+    border-top: 2px solid var(--theme-neon-primary);
+    color: var(--color-text-muted);
+}
+
+.about-page .footer-credit,
+.about-page .main-footer a {
+    color: var(--theme-neon-pink);
+}
+
+/* --- New CSS for the Zooming Background Image --- */
+
+#animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2; /* Ensure it's behind the content and the shooting stars (z-index: -1) */
+    transform-origin: center center; /* Ensure the image zooms from the center */
+    filter: brightness(0.7) contrast(1.2); /* Enhance the moody, neon look */
+}
+
+/* Also ensure your .about-page::before overlay is still active for legibility: */
+.about-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 70% Black Overlay for legibility */
+    z-index: -1;
+}
+
+/* INDEX.HTML STYLES */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: var(--color-card-bg); /* Dark Gray Background */
+    border-bottom: 3px solid var(--color-accent); /* Primary Blue Accent Line */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 99; 
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container a {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-light);
+    text-decoration: none;
+}
+
+.header-logo {
+    height: 60px;
+    widht: auto; /* Adjust size for your Bee2.png */
+    margin-right: 15px;
+    vertical-align: middle;
+}
+
+.site-title-text {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--color-text-light);
+}
+
+.main-nav {
+    display: flex;
+    gap: 25px;
+}
+
+.main-nav a {
+    color: var(--color-primary-text);
+    padding: 5px 0;
+    font-weight: 500;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.login-btn {
+    color: var(--color-accent);
+    padding: 8px 15px;
+    border: 1px solid var(--color-accent);
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.login-btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-light);
+}
+
+.cta-button {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+}
+
+.cta-button:hover {
+    background-color: var(--color-secondary);
+}
+
+/* --- 2. NEWS TICKER (Already styled in section 2 of main CSS) --- */
+
+
+/* --- 3. MAIN LAYOUT AND GRID --- */
+
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 30px;
+}
+
+.content-grid-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* 3 parts for content, 1 part for sidebar */
+    gap: 30px;
+    margin-top: 30px;
+}
+
+
+/* --- 4. PRIMARY CONTENT (Left Column) --- */
+
+.info-card {
+    background-color: var(--color-card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 40px 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.hero-tagline {
+    color: var(--color-headline-accent);
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.hero-section h1 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    line-height: 1.1;
+}
+
+.hero-description {
+    color: var(--color-primary-text);
+    font-size: 1.1em;
+    margin-bottom: 25px;
+}
+
+/* Calendar Section */
+.school-calendar h2 {
+    color: var(--color-text-light);
+    border-left: 5px solid var(--color-accent);
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+
+.calendar-image-v2 {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+}
+
+.calendar-download a {
+    color: var(--color-headline-accent);
+    font-weight: 500;
+}
+
+/* Featured Stories */
+.featured-stories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.news-card {
+    /* Uses .info-card styling as a base */
+    background-color: var(--color-card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    border-top: 3px solid var(--color-headline-accent);
+}
+
+.news-card h3 {
+    color: var(--color-accent);
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.news-card p {
+    color: var(--color-primary-text);
+    margin-bottom: 15px;
+}
+
+/* --- 5. SIDEBAR WIDGETS (Right Column) --- */
+
+.sidebar-widgets section {
+    background-color: var(--color-card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+.sidebar-widgets h3 {
+    color: var(--color-headline-accent);
+    font-size: 1.3em;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+/* Trending Topics */
+.topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.topic-tag {
+    background-color: var(--color-secondary-bg);
+    color: var(--color-primary-text);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+}
+
+.topic-tag:hover {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+/* Student Poll */
+.student-poll p {
+    color: var(--color-text-light);
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.student-poll label {
+    display: block;
+    color: var(--color-primary-text);
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.student-poll input[type="radio"] {
+    margin-right: 5px;
+}
+
+.poll-button {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* --- 6. FOOTER STYLES (General styling already applied) --- */
+.main-footer {
+    /* Reusing general main-footer styles */
+    border-top: 3px solid var(--color-accent);
+    margin-top: 40px;
+}
+
+.footer-contact {
+    color: var(--color-text-muted);
+    font-size: 0.85em;
+    margin-bottom: 10px;
+}
+
+.footer-credit {
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+/* --- 7. COOKIE BANNER (Inline style override for appearance) --- */
+/* The inline styles you provided are good for functionality, 
+   but we'll add a hover effect for the button */
+#accept-cookies-btn:hover {
+    background-color: var(--color-secondary);
+}
+
+/* --- 8. WIDGET FIXES --- */
+
+.graduation-countdown-widget {
+    /* Fixing the inner structure issues */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.graduation-countdown-widget h2 {
+    color: var(--color-headline-accent) !important; /* Force color on h2 */
+}
+
+.graduation-countdown-widget p {
+    color: var(--color-text-muted);
+    font-size: 0.9em;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: var(--color-card-bg); /* Dark Gray/Black */
+    border-bottom: 3px solid var(--color-accent); /* Primary Blue Accent Line */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    
+    /* Make it fixed and full-width */
+    position: sticky; 
+    top: 0;
+    width: 100%;
+    z-index: 100; /* Ensure it stays above content */
+}
+
+.admin-logo-text {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: var(--color-text-light);
+}
+
+/* Navigation Links */
+.admin-nav-main {
+    display: flex;
+    gap: 25px;
+}
+
+.admin-nav-main a {
+    color: var(--color-primary-text);
+    padding: 5px 0;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+.admin-nav-main a.active,
+.admin-nav-main a:hover {
+    color: var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+}
+
+/* User Info and Logout Button */
+.admin-user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--color-text-muted);
+}
+
+.admin-user-info a {
+    color: var(--color-headline-accent); /* Cyan link for username */
+    text-decoration: none;
+}
+
+.logout-btn {
+    background-color: #ff4d4d; /* Red/Alert color for Log Out */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #cc0000;
+}
+
+/* Adjust the main content margin to account for the sticky header */
+.dashboard-main {
+    max-width: 1200px;
+    margin: 40px auto; 
+    padding: 0 20px;
+}
+
+/* ========================================
+ * ADMIN GENERAL FORM AND TABLE STYLES
+ * (Used by articles, polls, calendar, etc.)
+ * ======================================== */
+
+.admin-tool-card {
+    background-color: var(--color-card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+}
+
+.admin-tool-card h2 {
+    font-size: 1.8em;
+    color: var(--color-headline-accent); /* Cyan/light blue for section titles */
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-secondary-bg);
+    margin-bottom: 25px;
+}
+
+/* Form Styles */
+.article-form label,
+.poll-form label {
+    display: block;
+    color: var(--color-primary-text);
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.article-form input[type="text"],
+.poll-form input[type="text"],
+.poll-form input[type="date"],
+.article-form select,
+.article-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-secondary-bg); /* Slightly lighter background for input */
+    color: var(--color-text-light);
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    resize: vertical;
+    font-size: 1em;
+}
+
+.article-form textarea {
+    min-height: 200px;
+}
+
+.article-form .cta-button,
+.poll-form .cta-button {
+    margin-top: 25px;
+    width: auto;
+    padding: 12px 30px;
+}
+
+/* Table Styles */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.95em;
+}
+
+.data-table th,
+.data-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-secondary-bg);
+    color: var(--color-primary-text);
+}
+
+.data-table th {
+    background-color: #2a2a2a;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.data-table tr:hover {
+    background-color: #1c1c1c;
+}
+
+/* Status Badges */
+.status-published {
+    color: var(--color-action-success); /* Green */
+    font-weight: bold;
+}
+.status-draft {
+    color: var(--color-headline-accent); /* Cyan */
+    font-weight: bold;
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 6px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+    opacity: 0.8;
+}
+
+.edit-btn {
+    background-color: var(--color-accent); /* Blue */
+    color: white;
+}
+
+.delete-btn, .close-btn {
+    background-color: #cc3d3d; /* Red */
+    color: white;
+}
+
+.view-btn {
+    background-color: var(--color-headline-accent); /* Cyan */
+    color: var(--color-card-bg);
+}
+
+/* ========================================
+ * ADMIN CALENDAR/FILE MANAGEMENT STYLES
+ * ======================================== */
+
+.section-description {
+    color: var(--color-text-muted);
+    font-size: 0.95em;
+    margin-bottom: 20px;
+}
+
+/* Ticker Text Area Styling (Reusing form styles, but refining) */
+.ticker-form textarea {
+    width: 100%;
+    padding: 15px;
+    min-height: 120px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-secondary-bg);
+    color: var(--color-text-light);
+    box-sizing: border-box;
+    font-family: 'Consolas', monospace; /* Monospace font for code/ticker-like text */
+    font-size: 1em;
+}
+
+.ticker-form .cta-button {
+    margin-top: 20px;
+}
+
+
+/* Custom File Input Styling (To match the screenshot) */
+.file-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-secondary-bg);
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.custom-file-label {
+    background-color: var(--color-text-muted); /* Dark gray background for the button part */
+    color: var(--color-text-light);
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-right: 15px;
+    transition: background-color 0.2s;
+    border: 1px solid var(--color-border);
+}
+
+.custom-file-label:hover {
+    background-color: #555;
+}
+
+#file-name {
+    color: var(--color-primary-text);
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.upload-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* ========================================
+ * ADMIN SETTINGS & MAINTENANCE STYLES
+ * ======================================== */
+
+/* General form styles are reused from the previous admin block (admin-articles/polls) */
+
+.settings-form input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Make checkbox slightly larger */
+    vertical-align: middle;
+}
+
+/* Maintenance Section Styling */
+.maintenance-card {
+    padding-top: 20px;
+}
+
+.maintenance-item {
+    border-bottom: 1px solid var(--color-secondary-bg);
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.maintenance-item:last-child {
+    border-bottom: none;
+}
+
+.maintenance-item p {
+    color: var(--color-primary-text);
+    max-width: 70%;
+    margin: 0;
+}
+
+.maintenance-item strong {
+    color: var(--color-text-light);
+}
+
+/* Specific Maintenance Action Buttons */
+
+.clear-cache-btn {
+    background-color: #ffaa00; /* Amber/Warning color */
+    color: var(--color-card-bg);
+}
+
+.backup-btn {
+    background-color: var(--color-action-success); /* Green for success/backup */
+    color: white;
+}
+
+.health-btn {
+    background-color: var(--color-accent); /* Blue */
+    color: white;
+}
+/* ========================================
+ * HOW-TO GUIDE STYLES (Public Page)
+ * ======================================== */
+
+/* General Page Layout */
+.main-content {
+    max-width: 1100px;
+    margin: 40px auto 60px auto;
+    padding: 0 20px;
+}
+
+/* Page Hero/Title Section */
+.page-hero {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px;
+    background-color: var(--color-secondary-bg); /* Dark background for the hero section */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.page-title {
+    font-size: 3.5em;
+    color: var(--color-text-light);
+    margin-bottom: 10px;
+}
+
+.accent-text {
+    color: var(--color-headline-accent); /* Cyan accent */
+    font-weight: 700;
+}
+
+.page-description {
+    font-size: 1.1em;
+    color: var(--color-text-muted);
+}
+
+/* Guide Category Section */
+.how-to-guides h2 {
+    font-size: 2.2em;
+    color: var(--color-accent); /* Primary blue for main section heading */
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--color-secondary-bg);
+    padding-bottom: 10px;
+}
+
+/* --- ACCORDION STYLING (The main feature) --- */
+
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between top-level accordion items */
+}
+
+.accordion-item {
+    background-color: var(--color-card-bg); /* Darker card background */
+    border-radius: 8px;
+    overflow: hidden; /* Important for containing content */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-left: 5px solid var(--color-accent); /* Blue accent line */
+}
+
+.accordion-header {
+    width: 100%;
+    text-align: left;
+    padding: 20px 25px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-light);
+    font-size: 1.5em;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.accordion-header:hover {
+    background-color: #313131; /* Subtle hover effect */
+    color: var(--color-headline-accent);
+}
+
+.accordion-header[aria-expanded="true"] {
+    background-color: #1a1a1a;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-headline-accent); /* Cyan when open */
+}
+
+.header-icon {
+    margin-right: 15px;
+    font-size: 1.2em;
+}
+
+/* Collapsible Content Area */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.15s ease-out, opacity 0.15s ease-out;
+    opacity: 0;
+}
+
+/* FIX: Use a very large max-height for large content/nested content */
+.accordion-content.open {
+    max-height: 5000px; 
+    transition: max-height 0.4s ease-in, opacity 0.4s ease-in;
+    opacity: 1;
+}
+
+.content-inner {
+    padding: 25px;
+    color: var(--color-primary-text);
+}
+
+.content-inner h3 {
+    color: var(--color-headline-accent);
+    font-size: 1.3em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.content-inner h4 {
+    color: var(--color-accent);
+    font-size: 1.1em;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.content-inner p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Ordered/Definition Lists */
+.content-inner ol {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.content-inner li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.content-inner dl {
+    margin: 20px 0;
+}
+
+.content-inner dt {
+    font-weight: bold;
+    color: var(--color-headline-accent);
+    margin-top: 10px;
+}
+
+.content-inner dd {
+    margin-left: 20px;
+    padding-bottom: 10px;
+    border-left: 2px solid var(--color-secondary-bg);
+    padding-left: 10px;
+}
+
+/* Nested Accordion Styling (For Cybersecurity deep dive) */
+.nested-accordion-container {
+    /* Ensures proper spacing in the cyber deep dive section */
+    margin-top: 20px;
+}
+
+.nested-accordion-item {
+    margin: 15px 0;
+    background-color: #313131; /* Slightly lighter gray for nested items */
+    border-radius: 6px;
+    border-left: 3px solid var(--color-action-info); /* Use a different accent color (e.g., light blue/info) */
+    overflow: hidden;
+}
+
+.nested-accordion-header {
+    width: 100%;
+    text-align: left;
+    padding: 12px 20px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-primary-text);
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nested-accordion-header:hover {
+    background-color: #2a2a2a;
+}
+
+.nested-accordion-header[aria-expanded="true"] {
+    background-color: #2a2a2a;
+    color: var(--color-action-info);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.nested-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.1s ease-in-out, opacity 0.1s ease-out;
+    opacity: 0;
+}
+
+/* FIX: Ensure nested content expands fully */
+.nested-accordion-content.open {
+    max-height: 3000px;
+    transition: max-height 0.3s ease-in, opacity 0.3s ease-in;
+    opacity: 1;
+}
+
+.nested-content-inner {
+    padding: 15px 20px;
+    background-color: #393939; /* Even lighter background for nested content */
+}
+
+/* Small Disclaimer/Note Style */
+.note-disclaimer {
+    background-color: #1a1a1a;
+    border-left: 4px solid #cc3d3d; /* Red border for importance/warning */
+    padding: 10px 15px;
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 0.9em;
+    color: #f1f1f1;
+}
+
+/* ========================================
+ * SPORTS PAGE LAYOUT AND STYLING
+ * ======================================== */
+
+.sports-page {
+    padding-top: 20px;
+}
+
+/* 2-Column Grid Layout */
+.sports-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 2/3 for news, 1/3 for sidebar */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Left Column: Highlights */
+.sports-highlights .page-title {
+    text-align: left;
+    font-size: 3em;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    border-bottom: 3px solid var(--color-accent);
+}
+
+.article-summary {
+    background-color: var(--color-secondary-bg);
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--color-headline-accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.article-summary h2 {
+    font-size: 1.7em;
+    color: var(--color-text-light);
+    margin-bottom: 5px;
+}
+
+.article-summary .article-meta {
+    font-size: 0.9em;
+    color: var(--color-text-muted);
+    margin-bottom: 15px;
+}
+
+.article-summary p {
+    line-height: 1.5;
+    color: var(--color-primary-text);
+    margin-bottom: 15px;
+}
+
+.read-full-btn {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.2s;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.read-full-btn:hover {
+    background-color: #0088cc;
+}
+
+/* Right Column: Sidebar Cards */
+.sports-sidebar {
+    padding-top: 100px; /* Align top with the first article, adjusting for the large H1 */
+}
+
+.sidebar-card {
+    background-color: var(--color-card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+    font-size: 1.5em;
+    color: var(--color-headline-accent);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--color-secondary-bg);
+}
+
+/* Schedule List */
+.schedule-list {
+    list-style: none; /* Remove default bullets */
+    padding: 0;
+}
+
+.schedule-list li {
+    padding: 8px 0;
+    color: var(--color-primary-text);
+    border-bottom: 1px dashed var(--color-border);
+}
+
+.schedule-list li:before {
+    content: "•"; /* Custom bullet point */
+    color: var(--color-accent);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em; 
+}
+
+/* Roster Table (Reusing admin table styles, but refining) */
+.roster-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.95em;
+}
+
+.roster-table th,
+.roster-table td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-secondary-bg);
+    color: var(--color-primary-text);
+}
+
+.roster-table th {
+    background-color: #2a2a2a;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.85em;
+}
+
+.roster-table tbody tr:hover {
+    background-color: #1c1c1c;
+}
+
+/* student.html */
+.student-hub {
+    padding-top: 30px;
+    max-width: 1200;
+}
+
+.student-hero {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px;
+    background-color: var(--color-secondary-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Dashboard Grid Layout */
+.dashboard-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+/* Individual Dashboard Cards */
+.dashboard-card {
+    background-color: var(--color-card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shdaow 0.3s ease;
+    border-top: 5px solid var(--color-accent);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-icon {
+    font-size: 2.5em;
+    color: var(--color-headline-accent);
+    margin-bottom: 15px;
+}
+
+.dashboard-card h2 {
+    font-size: 1.5em;
+    color: var(--color-text-light);
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--color-secondary-bg);
+    padding-bottom: 5px;
+}
+
+.dashboard-card p {
+    font-size: 0.95;
+    color: var(--color-primary-text);
+    margin-bottom: 20px;
+    min-height: 40px;
+}
+
+/* Content Styling */
+.grade-summary {
+    background-color: #1a1a1a;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+}
+
+.grade-value {
+    font-weight: 700;
+    color: var(--color-action-success);
+    font-size: 1.1em;
+    margin-left: 10px;
+}
+
+.warning-value {
+    color: #ffaa00
+}
+
+.schedule-list, .assignment-list, .link-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+
+
+.schedule-list li, .assignment-list li, .link-list li {
+    padding: 6px 0;;
+    color: var(--color-primary-text);
+    border-bottom: 1px dashed var(--color-secondary-bg);
+}
+
+.assignment-list .due-soon {
+    font-weight: 700;
+    color: var(--color-action-error);
+}
+
+.card-link {
+    display: block;
+    text-align: right;
+    color: var(--color-headline-accent);
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: auto;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+.community-updates h2 {
+    font-size: 2.2;
+    color: var(--color-accent);
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--color-secondary-bg);
+    padding-bottom: 10px;
+}
+
+.community-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.community-item {
+    background-color: var(--color-secondary-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.community-item {
+    background-color: var(--color-secondary-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.community-item h3 {
+    font-size: 1.4em;
+    color: var(--color-headline-accent);
+    margin-bottom: 10px;
+}
+
+.community-item p {
+    color: var(--color-primary-text);
+    margin-bottom: 15px
+}
+
+/* Small CTA button */
+.small-cta {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+
+.page-wrapper-403 {
+    /* Use padding to push content down past the fixed header (e.g., 120px to be safe) */
+    padding-top: 120px; 
+    padding-bottom: 50px; 
+    min-height: 100vh;
+}
+
+/* 2. ERROR CONTAINER STYLES */
+.error-container {
+    text-align: center;
+    padding: 80px 20px;
+    max-width: 600px;
+    /* Use auto margin to center horizontally, relying on wrapper padding for vertical offset */
+    margin: 0 auto 50px auto; 
+    background-color: var(--color-card-bg);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    border-top: 5px solid #ffaa00; /* Amber warning color */
+}
+
+/* 3. TYPOGRAPHY AND ICONS */
+.error-icon {
+    font-size: 3em;
+    color: #ffaa00;
+    margin-bottom: 15px;
+}
+
+.error-code {
+    font-size: 6em;
+    font-weight: 700;
+    color: #ffaa00;
+    margin-bottom: 5px;
+}
+
+.error-message {
+    font-size: 2em;
+    color: var(--color-headline-accent);
+    margin-bottom: 20px;
+}
+
+.error-details {
+    color: var(--color-primary-text);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.error-details a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.error-separator {
+    border-top: 1px solid #313131;
+    margin: 20px 0 30px 0;
+}
+
+.bottom-message {
+    margin-top: 30px;
+}
+
+.return-home {
+    margin-left: 10px;
+}
+
+/* 4. CAPTCHA CHALLENGE STYLES */
+.captcha-challenge {
+    padding: 0 10px;
+}
+
+.challenge-header {
+    color: var(--color-headline-accent);
+    margin-bottom: 10px;
+}
+
+.challenge-task {
+    color: var(--color-primary-text);
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+#drawing-area {
+    width: 100%;
+    height: 180px;
+    border: 2px dashed #ffaa00;
+    background-color: #1a1a1a;
+    margin-bottom: 20px;
+    cursor: crosshair;
+}
+
+.drawing-placeholder {
+    color: #666;
+    padding-top: 60px;
+    text-align: center;
+}
+
+.challenge-input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ffaa00;
+    background-color: #0f0f0f;
+    color: var(--color-text-light);
+    border-radius: 4px;
+}
+
+.challenge-submit-btn {
+    width: 100%;
+    opacity: 0.5;
+}
+
+/* 5. HEADER/LOGO FIX (Ensure this is in your style.css too) */
+.header-logo {
+    height: 60px; 
+    width: auto;
+    margin-right: 15px; 
+    vertical-align: middle;
+}
+.challenge-submit-btn:not(:disabled) {
+    opacity: 1; /* Makes it fully visible */
+    cursor: pointer; /* Changes the cursor to a pointer to show it's clickable */
+    background-color: #2196F3; /* A lighter blue color */
+    box-shadow: 0 4px 10px rgba(33, 150, 243, 0.4); /* Gives it a glow */
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}

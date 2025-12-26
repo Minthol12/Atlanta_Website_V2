@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - Access Denied</title>
+
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        /* Clean CSP: relies on drawing.js being in the same origin ('self') */
+        script-src 'self' https://fonts.googleapis.com; 
+        style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+        img-src 'self';
+        object-src 'none';
+        require-trusted-types-for 'script';
+        block-all-mixed-content;
+    ">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="
+        geolocation=(),
+        microphone=(),
+        camera=(),
+        usb=(),
+        payment=(),
+        fullscreen=(self)
+    ">
+    <meta http-equiv="Clear-Site-Data" content="cache, cookies, storage">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Bee2.png" alt="Atlanta NewsCast Logo" class="header-logo">
+                <span class="site-title-text">Atlanta NewsCast</span>
+            </a>
+        </div>
+
+        <nav class="main-nav">
+            <a href="sports.html">Sports</a>
+            <a href="howto.html">How-To</a>
+            <a href="student.html">Student Section</a>
+            <a href="worldnews.html">World News</a>
+            <a href="schoolnews.html">School News</a>
+        </nav>
+
+        <div class="auth-buttons">
+            <a href="auth.html" class="login-btn">Log In</a>
+            <a href="auth.html" class="cta-button signup-btn">Sign Up</a>
+        </div>
+        <div class="nav-toggle"></div>
+    </header>
+
+    <div class="page-wrapper-403">
+
+        <div class="error-container">
+            <i class="fas fa-user-lock error-icon"></i>
+            <div class="error-code">403</div>
+            <h1 class="error-message">Access Forbidden</h1>
+
+            <p class="error-details">
+                This area is restricted to authorized users only. To prove you are not a bot and gain temporary access to the Admin Login, please complete the final security measure.
+            </p>
+
+            <hr class="error-separator">
+
+            <div class="captcha-challenge">
+                <h3 class="challenge-header">The Geometric Proof</h3>
+
+                <p class="challenge-task">
+                    *Task 1* Draw a single perfect circle in the box using only your mouse
+                </p>
+
+                <canvas id="drawing-area" width="600" height="180"></canvas>
+
+                <p class="challenge-task">
+                    *Task 2 (The Proof)* Now, in one sentence, *explain why the edges of your drawn circle are not mathematically perfect.*
+                </p>
+
+                <input type="text" placeholder="Explain the mathematical imperfection..." class="challenge-input">
+
+                <button class="cta-button challenge-submit-btn" disabled>
+                    Submit Proof (Locked until drawing is complete)
+                </button>
+            </div>
+
+            <hr class="error-separator">
+
+            <p class="error-details bottom-message">
+                *Having trouble with the proof? *I don't blame you. Bots and humans alike struggle with abstract proofs.
+            </p>
+
+            <a href="auth.html" class="cta-button">Skip the Proof and Log In</a>
+            <a href="index.html" class="login-btn return-home">Return to Homepage</a>
+        </div>
+
+    </div>
+    
+    <footer class="main-footer">
+        <div class="footer-contact">
+            Atlanta C-3 Schools * 600 S. Atterberry Street * Atlanta, Missouri 63530 * (phone) 660-239-4211 * (fax) 660-239-4205
+        </div>
+
+        <div class="footer-credit">
+            Made by Zayne ;)
+        </div>
+    </footer>
+    
+    <script src="drawing.js"></script>
+    
+</body>
+</html>

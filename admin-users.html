@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta C-3 | User Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .nav-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .nav-drawer.open { transform: translateX(0); }
+        .overlay { transition: opacity 0.4s ease; opacity: 0; pointer-events: none; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+        
+        .user-row:hover { background-color: #f8fafc; }
+        .badge-admin { background: #dcfce7; color: #166534; }
+        .badge-editor { background: #dbeafe; color: #1e40af; }
+        .badge-staff { background: #f1f5f9; color: #475569; }
+
+        /* Modal Transitions */
+        .modal { transition: all 0.3s ease; opacity: 0; pointer-events: none; transform: scale(0.95); }
+        .modal.active { opacity: 1; pointer-events: auto; transform: scale(1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-[#003366] rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                <span class="font-extrabold text-slate-900 tracking-tight">ATLANTA C-3</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <button onclick="toggleDrawer()" class="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-slate-800 transition-all">
+                    <span>MENU</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M12 12h8m-8 6h8"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side Drawer -->
+    <div id="overlay" onclick="toggleDrawer()" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
+    <div id="drawer" class="nav-drawer fixed top-0 right-0 h-full w-80 bg-white z-[60] shadow-2xl p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xs font-black uppercase tracking-widest text-slate-400">Admin Control</span>
+            <button onclick="toggleDrawer()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex flex-col gap-8">
+            <a href="admin-dashboard.html" class="group"><span class="text-2xl font-extrabold block group-hover:text-[#003366]">Overview</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Dashboard</span></a>
+            <a href="admin-articles.html" class="group"><span class="text-2xl font-extrabold block group-hover:text-[#003366]">Manage Articles</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">School News</span></a>
+            <a href="admin-polls.html" class="group"><span class="text-2xl font-extrabold block group-hover:text-[#003366]">Manage Polls</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Engagement</span></a>
+            <a href="admin-users.html" class="group"><span class="text-2xl font-extrabold block text-[#003366]">Manage Users</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Staff Directory</span></a>
+            <hr class="border-slate-100">
+            <a href="index.html" class="text-sm font-bold text-slate-500">Logout</a>
+        </div>
+    </div>
+
+    <header class="bg-[#003366] text-white pt-12 pb-20 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <h1 class="text-4xl font-extrabold uppercase mb-2">User Management</h1>
+                <p class="text-blue-200 font-medium">Manage administrative access and staff permissions.</p>
+            </div>
+            <button onclick="openAddModal()" class="bg-white text-[#003366] px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-50 transition-all flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                Add New User
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 -mt-10 mb-20">
+        <!-- Message Box (replaces alert) -->
+        <div id="toast" class="hidden fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl z-[100] items-center gap-3 animate-bounce">
+            <span id="toast-message">Action successful</span>
+        </div>
+
+        <!-- Users Table -->
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="users-table">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">User Details</th>
+                            <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Role</th>
+                            <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Last Login</th>
+                            <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100" id="user-body">
+                        <!-- Content rendered via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- EDIT/ADD MODAL -->
+    <div id="user-modal-overlay" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[70]"></div>
+    <div id="user-modal" class="modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white rounded-3xl shadow-2xl z-[80] p-8">
+        <h2 id="modal-title" class="text-2xl font-black uppercase text-slate-900 mb-6">Edit User</h2>
+        <form id="user-form" class="space-y-4">
+            <input type="hidden" id="edit-index">
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Full Name</label>
+                <input type="text" id="user-name" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Email Address</label>
+                <input type="email" id="user-email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Role</label>
+                <select id="user-role" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-bold">
+                    <option value="Super Admin">Super Admin</option>
+                    <option value="Editor">Editor</option>
+                    <option value="Staff">Staff</option>
+                </select>
+            </div>
+            <div class="flex gap-3 pt-4">
+                <button type="button" onclick="closeModal()" class="flex-1 px-6 py-3 border border-slate-200 rounded-xl font-bold text-slate-500 hover:bg-slate-50">Cancel</button>
+                <button type="submit" class="flex-1 px-6 py-3 bg-[#003366] text-white rounded-xl font-bold hover:bg-[#002244]">Save User</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- DELETE CONFIRMATION MODAL -->
+    <div id="delete-modal-overlay" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[90]"></div>
+    <div id="delete-modal" class="modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-sm bg-white rounded-3xl shadow-2xl z-[100] p-8 text-center">
+        <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        <h3 class="text-xl font-black text-slate-900 mb-2">Are you sure?</h3>
+        <p class="text-slate-500 text-sm mb-6">This action cannot be undone. This user will lose all administrative access immediately.</p>
+        <div class="flex gap-3">
+            <button onclick="closeDeleteModal()" class="flex-1 px-6 py-3 bg-slate-100 rounded-xl font-bold text-slate-600 hover:bg-slate-200">Cancel</button>
+            <button id="confirm-delete-btn" class="flex-1 px-6 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700">Delete</button>
+        </div>
+    </div>
+
+    <script>
+        // Data State
+        let users = [
+            { name: 'John Smith', email: 'jsmith@atlantac3.k12.mo.us', role: 'Super Admin', lastLogin: 'Today, 8:12 AM' },
+            { name: 'Amy Miller', email: 'amiller@atlantac3.k12.mo.us', role: 'Editor', lastLogin: 'Oct 12, 2025' },
+            { name: 'Brian King', email: 'bking@atlantac3.k12.mo.us', role: 'Staff', lastLogin: 'Yesterday, 4:45 PM' }
+        ];
+
+        let deleteTargetIndex = null;
+
+        // UI Functions
+        function toggleDrawer() { 
+            document.getElementById('drawer').classList.toggle('open'); 
+            document.getElementById('overlay').classList.toggle('open'); 
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        function renderUsers() {
+            const tbody = document.getElementById('user-body');
+            tbody.innerHTML = '';
+            
+            users.forEach((user, index) => {
+                const badgeClass = user.role === 'Super Admin' ? 'badge-admin' : (user.role === 'Editor' ? 'badge-editor' : 'badge-staff');
+                const initial = user.name.split(' ').map(n => n[0]).join('');
+                
+                const row = `
+                    <tr class="user-row transition-colors">
+                        <td class="px-8 py-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full ${index === 0 ? 'bg-[#003366]' : 'bg-slate-200'} text-${index === 0 ? 'white' : 'slate-600'} flex items-center justify-center font-bold text-sm">${initial}</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">${user.name}</p>
+                                    <p class="text-xs text-slate-500">${user.email}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-8 py-6">
+                            <span class="${badgeClass} px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">${user.role}</span>
+                        </td>
+                        <td class="px-8 py-6">
+                            <p class="text-sm text-slate-600">${user.lastLogin}</p>
+                        </td>
+                        <td class="px-8 py-6 text-right">
+                            <button onclick="openEditModal(${index})" class="text-slate-400 hover:text-blue-600 p-2 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            </button>
+                            <button onclick="requestDelete(${index})" class="text-slate-400 hover:text-red-600 p-2 ml-2 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        // Edit/Add Logic
+        function openAddModal() {
+            document.getElementById('modal-title').textContent = 'Add New User';
+            document.getElementById('edit-index').value = '';
+            document.getElementById('user-form').reset();
+            toggleModal(true);
+        }
+
+        function openEditModal(index) {
+            const user = users[index];
+            document.getElementById('modal-title').textContent = 'Edit User';
+            document.getElementById('edit-index').value = index;
+            document.getElementById('user-name').value = user.name;
+            document.getElementById('user-email').value = user.email;
+            document.getElementById('user-role').value = user.role;
+            toggleModal(true);
+        }
+
+        function toggleModal(show) {
+            const modal = document.getElementById('user-modal');
+            const overlay = document.getElementById('user-modal-overlay');
+            if (show) {
+                modal.classList.add('active');
+                overlay.classList.add('open');
+            } else {
+                modal.classList.remove('active');
+                overlay.classList.remove('open');
+            }
+        }
+
+        function closeModal() { toggleModal(false); }
+
+        document.getElementById('user-form').onsubmit = function(e) {
+            e.preventDefault();
+            const index = document.getElementById('edit-index').value;
+            const userData = {
+                name: document.getElementById('user-name').value,
+                email: document.getElementById('user-email').value,
+                role: document.getElementById('user-role').value,
+                lastLogin: index !== '' ? users[index].lastLogin : 'Never'
+            };
+
+            if (index !== '') {
+                users[index] = userData;
+                showToast('User updated successfully');
+            } else {
+                users.push(userData);
+                showToast('User added successfully');
+            }
+            
+            closeModal();
+            renderUsers();
+        };
+
+        // Delete Logic
+        function requestDelete(index) {
+            deleteTargetIndex = index;
+            document.getElementById('delete-modal').classList.add('active');
+            document.getElementById('delete-modal-overlay').classList.add('open');
+        }
+
+        function closeDeleteModal() {
+            deleteTargetIndex = null;
+            document.getElementById('delete-modal').classList.remove('active');
+            document.getElementById('delete-modal-overlay').classList.remove('open');
+        }
+
+        document.getElementById('confirm-delete-btn').onclick = function() {
+            if (deleteTargetIndex !== null) {
+                users.splice(deleteTargetIndex, 1);
+                showToast('User removed');
+                closeDeleteModal();
+                renderUsers();
+            }
+        };
+
+        // Init
+        window.onload = renderUsers;
+    </script>
+</body>
+</html>

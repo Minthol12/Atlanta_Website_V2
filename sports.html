@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athletics | Atlanta NewsCast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;900&display=swap');
+        
+        :root {
+            --atlanta-blue: #003399;
+            --atlanta-dark: #001a4d;
+        }
+
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        .nav-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .nav-drawer.open { transform: translateX(0); }
+        .overlay { transition: opacity 0.4s ease; opacity: 0; pointer-events: none; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+
+        .ticker-wrapper { overflow: hidden; white-space: nowrap; background: var(--atlanta-dark); border-bottom: 3px solid var(--atlanta-blue); }
+        .ticker-content { display: inline-block; animation: ticker 35s linear infinite; color: white; padding: 12px 0; font-weight: 700; }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .jersey-badge {
+            background: #f1f5f9;
+            color: var(--atlanta-blue);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            border: 1px solid #e2e8f0;
+            display: inline-block;
+            min-width: 28px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="bg-white border-b-4 border-[#003399] px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-[#003399] rounded-lg flex items-center justify-center text-white font-bold transition-transform group-hover:scale-105">
+                    <img src="Bee2.png" alt="Logo" class="w-8 h-8 object-contain">
+                </div>
+                <div>
+                    <span class="font-extrabold text-[#003399] tracking-tight block leading-none uppercase">Atlanta NewsCast</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Athletics Department</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 text-[#003399]">
+                <a href="sports.html" class="text-sm font-black border-b-2 border-[#003399]">Sports</a>
+                <a href="howto.html" class="text-sm font-bold hover:opacity-70">How-To</a>
+                <a href="student.html" class="text-sm font-bold hover:opacity-70">Student Section</a>
+                <a href="schoolnews.html" class="text-sm font-bold hover:opacity-70">School News</a>
+            </div>
+
+            <button onclick="toggleDrawer()" class="p-2 hover:bg-slate-100 rounded-full">
+                <svg class="w-6 h-6 text-[#003399]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <div class="ticker-wrapper">
+        <div class="ticker-content text-xs uppercase tracking-widest">
+            <span class="mx-8">🏀 Varsity Boys: Atlanta 78 - Northwood 55 (FINAL)</span>
+            <span class="mx-8 text-blue-200">⚽️ Soccer Playoffs: Friday @ 6:00 PM vs Central</span>
+            <span class="mx-8">🏊‍♂️ Swimming: New School Records Set in 100m Fly</span>
+            <span class="mx-8 text-blue-200">🤼 Wrestling Invitational: Sat @ 9:00 AM</span>
+        </div>
+    </div>
+
+    <div id="overlay" onclick="toggleDrawer()" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
+    <div id="drawer" class="nav-drawer fixed top-0 right-0 h-full w-80 bg-white z-[60] shadow-2xl p-8 flex flex-col border-l-4 border-[#003399]">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xs font-black uppercase tracking-widest text-[#003399]">Menu</span>
+            <button onclick="toggleDrawer()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex flex-col gap-6">
+            <a href="index.html" class="text-3xl font-black hover:text-[#003399]">Home</a>
+            <a href="sports.html" class="text-3xl font-black text-[#003399]">Sports</a>
+            <a href="howto.html" class="text-3xl font-black hover:text-[#003399]">How-To</a>
+            <a href="student.html" class="text-3xl font-black hover:text-[#003399]">Student Section</a>
+            <a href="schoolnews.html" class="text-3xl font-black hover:text-[#003399]">School News</a>
+        </div>
+    </div>
+
+    <header class="bg-white py-16 px-6 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto">
+            <span class="text-[#003399] text-xs font-black uppercase tracking-[0.4em] mb-4 block">Atlanta Hornet Athletics</span>
+            <h1 class="text-6xl md:text-8xl font-black text-slate-900 leading-none">Sports <span class="text-[#003399]">Updates</span></h1>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid lg:grid-cols-3 gap-12">
+            
+            <div class="lg:col-span-2 space-y-12">
+                <article class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="bg-blue-50 text-[#003399] px-3 py-1 rounded text-[10px] font-black uppercase tracking-widest">Basketball</span>
+                        <span class="text-slate-400 text-xs font-bold uppercase">November 25, 2025</span>
+                    </div>
+                    <h2 class="text-4xl font-black mb-4 leading-tight">Season Opener Dominates Rivals</h2>
+                    <p class="text-slate-600 mb-8 text-lg leading-relaxed">The Atlanta Eagles basketball team delivered a stunning performance in their season opener against Northwood, securing a victory with a final score of 78-55. Stellar defensive plays led by the senior class were the key to success.</p>
+                    <a href="#" class="inline-block bg-[#003399] text-white px-8 py-4 rounded-xl font-black text-sm hover:bg-[#001a4d] transition-colors">READ FULL REPORT</a>
+                </article>
+
+                <article class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="bg-blue-50 text-[#003399] px-3 py-1 rounded text-[10px] font-black uppercase tracking-widest">Swim & Dive</span>
+                        <span class="text-slate-400 text-xs font-bold uppercase">November 24, 2025</span>
+                    </div>
+                    <h2 class="text-4xl font-black mb-4 leading-tight">Swimming Sets New School Records</h2>
+                    <p class="text-slate-600 mb-6 text-lg leading-relaxed">The swim team broke four school records at the recent invitational, signaling a strong season ahead. Detailed scores are now available.</p>
+                    <a href="#" class="text-[#003399] font-black text-sm border-b-2 border-[#003399] pb-1 uppercase tracking-widest">View Record Board</a>
+                </article>
+            </div>
+
+            <aside class="space-y-8">
+                <div class="bg-white border-2 border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <div class="bg-[#003399] p-5">
+                        <h3 class="text-white font-black uppercase tracking-widest text-sm">Varsity Roster (25-26)</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 border-b border-slate-100">
+                                <tr class="text-slate-400 font-black uppercase text-[10px] tracking-widest">
+                                    <th class="p-4">#</th>
+                                    <th class="p-4">Player</th>
+                                    <th class="p-4">Pos</th>
+                                    <th class="p-4 text-right">Gr</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-800 font-bold">
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">3</span></td><td class="p-4">Zeke Bryant</td><td class="p-4">G</td><td class="p-4 text-right">9</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">14</span></td><td class="p-4">Iyan Bowen</td><td class="p-4">C</td><td class="p-4 text-right">9</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">23</span></td><td class="p-4">Jayden Lusher</td><td class="p-4">F</td><td class="p-4 text-right">9</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">24</span></td><td class="p-4">Owen Baker</td><td class="p-4">PG</td><td class="p-4 text-right">9</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">5</span></td><td class="p-4">Owen Mason</td><td class="p-4">G</td><td class="p-4 text-right">10</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">15</span></td><td class="p-4">Jayden White</td><td class="p-4">G</td><td class="p-4 text-right">10</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">1</span></td><td class="p-4">Brody Hatcher</td><td class="p-4">SF</td><td class="p-4 text-right">11</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">4</span></td><td class="p-4">Barret Pinkston</td><td class="p-4">C</td><td class="p-4 text-right">11</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">11</span></td><td class="p-4">Dustin Magers</td><td class="p-4">PF</td><td class="p-4 text-right">11</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">0</span></td><td class="p-4">Landon Gladhill</td><td class="p-4">PG</td><td class="p-4 text-right">12</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">2</span></td><td class="p-4">Logan Gladhill</td><td class="p-4">G</td><td class="p-4 text-right">12</td></tr>
+                                <tr class="border-b border-slate-50 hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">10</span></td><td class="p-4">Elijah Fryman</td><td class="p-4">G</td><td class="p-4 text-right">12</td></tr>
+                                <tr class="hover:bg-blue-50/50"><td class="p-4"><span class="jersey-badge">12</span></td><td class="p-4">Cris Felder</td><td class="p-4">PF</td><td class="p-4 text-right">12</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-[#003399] rounded-2xl p-6 text-white">
+                    <h3 class="font-black uppercase tracking-widest text-xs mb-6 opacity-80">Game Calendar</h3>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-white/20 pl-4">
+                            <span class="block text-[10px] font-black text-blue-300 uppercase">Dec 1 • Home</span>
+                            <span class="block font-bold">Basketball vs Central</span>
+                        </div>
+                        <div class="border-l-2 border-white/20 pl-4">
+                            <span class="block text-[10px] font-black text-blue-300 uppercase">Dec 5 • Away</span>
+                            <span class="block font-bold">Swim @ Northwood</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-20 pb-10 px-6 mt-20 border-t-8 border-[#003399]">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 bg-white rounded flex items-center justify-center text-[#003399] font-black">A</div>
+                    <span class="text-2xl font-black uppercase tracking-tight">Atlanta C-3 News</span>
+                </div>
+                <p class="text-slate-400 text-sm max-w-sm">600 S. Atterberry Street • Atlanta, MO 63530<br>(660) 239-4211</p>
+            </div>
+            <div class="text-right">
+                <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Official School Media</p>
+                <p class="text-xs text-slate-400 mt-4">&copy; 2025 Atlanta C-3 School District.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

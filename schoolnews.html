@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School News | Atlanta C-3 School District</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;900&display=swap');
+        
+        :root {
+            --primary: #003366;
+            --accent: #FFD700;
+        }
+
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, .news-title { font-family: 'Playfair Display', serif; }
+
+        .nav-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .nav-drawer.open { transform: translateX(0); }
+        .overlay { transition: opacity 0.4s ease; opacity: 0; pointer-events: none; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+
+        .category-pill.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .news-card:hover img { transform: scale(1.05); }
+        .news-card img { transition: transform 0.5s ease; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-[#003366] rounded-xl flex items-center justify-center text-white font-bold group-hover:rotate-12 transition-transform">A</div>
+                <div>
+                    <span class="font-extrabold text-slate-900 tracking-tight block leading-none">ATLANTA C-3</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">School District</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-sm font-bold hover:text-[#003366]">Home</a>
+                <a href="schoolnews.html" class="text-sm font-bold text-[#003366]">News</a>
+                <a href="athletics.html" class="text-sm font-bold hover:text-[#003366]">Athletics</a>
+                <a href="calendar.html" class="text-sm font-bold hover:text-[#003366]">Calendar</a>
+            </div>
+
+            <button onclick="toggleDrawer()" class="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Side Drawer -->
+    <div id="overlay" onclick="toggleDrawer()" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
+    <div id="drawer" class="nav-drawer fixed top-0 right-0 h-full w-80 bg-white z-[60] shadow-2xl p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xs font-black uppercase tracking-widest text-slate-400">Navigation</span>
+            <button onclick="toggleDrawer()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex flex-col gap-6">
+            <a href="index.html" class="text-3xl font-black hover:text-[#003366]">Home</a>
+            <a href="schoolnews.html" class="text-3xl font-black text-[#003366]">News</a>
+            <a href="athletics.html" class="text-3xl font-black hover:text-[#003366]">Athletics</a>
+            <a href="calendar.html" class="text-3xl font-black hover:text-[#003366]">Calendar</a>
+            <a href="staff.html" class="text-3xl font-black hover:text-[#003366]">Staff</a>
+            <hr class="border-slate-100 my-4">
+            <a href="admin-login.html" class="text-sm font-bold text-slate-400 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Staff Portal
+            </a>
+        </div>
+    </div>
+
+    <!-- Featured Hero Section -->
+    <header class="bg-[#003366] py-16 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 L100 0 L100 100 Z" fill="white"></path>
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <span class="inline-block bg-[#FFD700] text-[#003366] px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest mb-4">Featured Story</span>
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-7xl text-white font-black mb-6 leading-tight">State Championship Bound: Varsity Boys Basketball.</h1>
+                    <p class="text-blue-100 text-lg mb-8 leading-relaxed max-w-xl">Following an incredible 68-54 victory in the regional finals, the Hornets are heading to the state tournament. Tickets go on sale this Wednesday at the front office.</p>
+                    <div class="flex items-center gap-4">
+                        <button class="bg-white text-[#003366] px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all">Read Full Story</button>
+                        <span class="text-blue-300 text-sm font-medium">Published 2 hours ago</span>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="absolute -inset-2 bg-[#FFD700] rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                    <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&q=80&w=1200" alt="Basketball Game" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center gap-3 mb-12 pb-6 border-b border-slate-200">
+            <button onclick="filterNews('All')" class="category-pill active px-6 py-2 rounded-full border border-slate-200 text-sm font-bold hover:border-[#003366] transition-all">All News</button>
+            <button onclick="filterNews('Athletics')" class="category-pill px-6 py-2 rounded-full border border-slate-200 text-sm font-bold hover:border-[#003366] transition-all">Athletics</button>
+            <button onclick="filterNews('Academic')" class="category-pill px-6 py-2 rounded-full border border-slate-200 text-sm font-bold hover:border-[#003366] transition-all">Academic</button>
+            <button onclick="filterNews('FFA')" class="category-pill px-6 py-2 rounded-full border border-slate-200 text-sm font-bold hover:border-[#003366] transition-all">FFA & Clubs</button>
+            <button onclick="filterNews('District')" class="category-pill px-6 py-2 rounded-full border border-slate-200 text-sm font-bold hover:border-[#003366] transition-all">District Updates</button>
+        </div>
+
+        <!-- News Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="news-grid">
+            <!-- Articles will be injected here -->
+        </div>
+
+        <!-- Load More -->
+        <div class="mt-16 text-center">
+            <button class="px-10 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                View Archive
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white pt-20 pb-10 px-6 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#003366] font-bold">A</div>
+                        <span class="text-2xl font-black">ATLANTA C-3</span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm mb-6">Empowering students through excellence in education, athletics, and community involvement since 1922.</p>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-sm font-bold">
+                        <li><a href="#" class="hover:text-[#FFD700]">Board of Education</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Employment</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Parent Portal</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">Contact</h4>
+                    <p class="text-sm text-slate-400 mb-4">600 George St, Atlanta, MO 63530</p>
+                    <p class="text-sm text-slate-400 mb-2">(660) 239-4211</p>
+                    <div class="flex gap-4 mt-6">
+                        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 cursor-pointer transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-10 text-center text-xs text-slate-500 font-bold">
+                &copy; 2025 Atlanta C-3 School District. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const newsData = [
+            {
+                title: "FFA Chapter Hosts Annual Chili Cook-Off",
+                category: "FFA",
+                date: "Oct 24, 2025",
+                image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=800",
+                excerpt: "The community gathered Friday night for the 15th annual FFA Chili Cook-off, raising over $2,000 for..."
+            },
+            {
+                title: "School Board Approves New STEM Wing",
+                category: "District",
+                date: "Oct 22, 2025",
+                image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800",
+                excerpt: "Construction is set to begin this summer on a state-of-the-art laboratory facility for middle school students..."
+            },
+            {
+                title: "Elementary Music Program: Winter Dates",
+                category: "Academic",
+                date: "Oct 20, 2025",
+                image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=800",
+                excerpt: "Mark your calendars for our talented K-5 students' winter performance held in the school gymnasium..."
+            },
+            {
+                title: "Volleyball Senior Night Highlights",
+                category: "Athletics",
+                date: "Oct 18, 2025",
+                image: "https://images.unsplash.com/photo-1592656094267-764a45160876?auto=format&fit=crop&q=80&w=800",
+                excerpt: "Celebrating the dedication of our four seniors as they played their final home game of the regular season..."
+            },
+            {
+                title: "Academic Bowl Team Takes 1st Place",
+                category: "Academic",
+                date: "Oct 15, 2025",
+                image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800",
+                excerpt: "Our Quiz Bowl team went undefeated at the conference tournament this past weekend in Kirksville..."
+            },
+            {
+                title: "Bus Route Adjustments for Winter",
+                category: "District",
+                date: "Oct 12, 2025",
+                image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=800",
+                excerpt: "Please review the updated pickup times for routes 4 and 7 starting next Monday due to road work..."
+            }
+        ];
+
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+
+        function renderNews(filter = 'All') {
+            const grid = document.getElementById('news-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'All' ? newsData : newsData.filter(n => n.category === filter);
+
+            filtered.forEach(article => {
+                const card = `
+                    <article class="news-card bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 group transition-all hover:shadow-xl hover:-translate-y-1">
+                        <div class="h-56 overflow-hidden relative">
+                            <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-[#003366]">${article.category}</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <span class="text-xs font-bold text-slate-400 mb-3 block">${article.date}</span>
+                            <h3 class="news-title text-2xl font-black text-slate-900 mb-4 group-hover:text-[#003366] transition-colors leading-tight">${article.title}</h3>
+                            <p class="text-slate-500 text-sm mb-6 line-clamp-2">${article.excerpt}</p>
+                            <a href="#" class="inline-flex items-center gap-2 text-sm font-black text-[#003366] group/link">
+                                Read More 
+                                <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+                    </article>
+                `;
+                grid.insertAdjacentHTML('beforeend', card);
+            });
+        }
+
+        function filterNews(category) {
+            // Update UI buttons
+            document.querySelectorAll('.category-pill').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.includes(category) || (category === 'All' && btn.innerText === 'All News')) {
+                    btn.classList.add('active');
+                }
+            });
+            renderNews(category);
+        }
+
+        // Initial render
+        window.onload = () => renderNews();
+    </script>
+</body>
+</html>

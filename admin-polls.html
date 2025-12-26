@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta C-3 | Manage Polls</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .nav-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .nav-drawer.open { transform: translateX(0); }
+        .overlay { transition: opacity 0.4s ease; opacity: 0; pointer-events: none; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+        
+        .poll-card:hover { border-color: #003366; }
+        .progress-bar { transition: width 1s ease-in-out; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-[#003366] rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                <span class="font-extrabold text-slate-900 tracking-tight">ATLANTA C-3</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <button onclick="toggleDrawer()" class="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-slate-800 transition-all">
+                    <span>MENU</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M12 12h8m-8 6h8"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side Drawer -->
+    <div id="overlay" onclick="toggleDrawer()" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
+    <div id="drawer" class="nav-drawer fixed top-0 right-0 h-full w-80 bg-white z-[60] shadow-2xl p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xs font-black uppercase tracking-widest text-slate-400">Admin Control</span>
+            <button onclick="toggleDrawer()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex flex-col gap-8">
+            <a href="admin-dashboard.html" class="group"><span class="text-2xl font-extrabold block group-hover:text-[#003366]">Overview</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Dashboard</span></a>
+            <a href="admin-articles.html" class="group"><span class="text-2xl font-extrabold block group-hover:text-[#003366]">Manage Articles</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">School News</span></a>
+            <a href="admin-polls.html" class="group"><span class="text-2xl font-extrabold block text-[#003366]">Manage Polls</span><span class="text-xs text-slate-400 uppercase font-bold tracking-widest">Engagement</span></a>
+            <hr class="border-slate-100">
+            <a href="index.html" class="text-sm font-bold text-slate-500">Logout</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-[#003366] text-white pt-12 pb-20 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <h1 class="text-4xl font-extrabold uppercase mb-2">Engagement Polls</h1>
+                <p class="text-blue-200 font-medium">Create and monitor student body surveys.</p>
+            </div>
+            <button class="bg-white text-[#003366] px-8 py-3 rounded-full font-black text-sm uppercase tracking-widest hover:bg-blue-50 transition-all shadow-lg">
+                Create New Poll
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 -mt-10 mb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Active Poll Management -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Current Active Poll -->
+                <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                        <div class="flex items-center gap-3">
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase tracking-widest rounded-full">Active</span>
+                            <h3 class="font-bold text-slate-900">Spirit Week Theme 2024</h3>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="p-2 text-slate-400 hover:text-[#003366]"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+                            <button class="p-2 text-slate-400 hover:text-red-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                        </div>
+                    </div>
+                    <div class="p-8 space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm font-bold mb-2">
+                                    <span class="text-slate-700">Decades Day</span>
+                                    <span class="text-[#003366]">42% (88 votes)</span>
+                                </div>
+                                <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="progress-bar h-full bg-[#003366]" style="width: 42%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-bold mb-2">
+                                    <span class="text-slate-700">Superhero vs Villains</span>
+                                    <span class="text-[#003366]">35% (74 votes)</span>
+                                </div>
+                                <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="progress-bar h-full bg-blue-400" style="width: 35%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm font-bold mb-2">
+                                    <span class="text-slate-700">Pajama Day</span>
+                                    <span class="text-[#003366]">23% (48 votes)</span>
+                                </div>
+                                <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="progress-bar h-full bg-slate-300" style="width: 23%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-6 border-t border-slate-50 flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-widest">
+                            <span>Total Votes: 210</span>
+                            <span>Ends in: 2 days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poll History -->
+                <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-8">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Recent Poll History</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-transparent hover:border-slate-200 transition-all">
+                            <div>
+                                <p class="font-bold text-slate-900">Homecoming Meal Choice</p>
+                                <p class="text-xs text-slate-500">Ended Oct 12 • 345 Votes</p>
+                            </div>
+                            <span class="px-3 py-1 bg-slate-200 text-slate-600 text-[10px] font-black uppercase tracking-widest rounded-full">Archived</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-transparent hover:border-slate-200 transition-all">
+                            <div>
+                                <p class="font-bold text-slate-900">Senior Trip Destination</p>
+                                <p class="text-xs text-slate-500">Ended Sept 30 • 42 Votes</p>
+                            </div>
+                            <span class="px-3 py-1 bg-slate-200 text-slate-600 text-[10px] font-black uppercase tracking-widest rounded-full">Archived</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Sidebar -->
+            <div class="space-y-6">
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-200">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Global Settings</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">Public Visibility</p>
+                                <p class="text-xs text-slate-500">Show poll on homepage</p>
+                            </div>
+                            <button class="w-12 h-6 bg-emerald-500 rounded-full relative p-1 transition-colors">
+                                <div class="w-4 h-4 bg-white rounded-full ml-auto"></div>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">One Vote Per IP</p>
+                                <p class="text-xs text-slate-500">Prevent spam voting</p>
+                            </div>
+                            <button class="w-12 h-6 bg-emerald-500 rounded-full relative p-1 transition-colors">
+                                <div class="w-4 h-4 bg-white rounded-full ml-auto"></div>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">Show Live Results</p>
+                                <p class="text-xs text-slate-500">Let voters see bars</p>
+                            </div>
+                            <button class="w-12 h-6 bg-slate-200 rounded-full relative p-1 transition-colors">
+                                <div class="w-4 h-4 bg-white rounded-full"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 border border-amber-100 p-6 rounded-3xl">
+                    <div class="flex gap-3 mb-4">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h4 class="font-bold text-amber-900 text-sm uppercase tracking-tight">Admin Note</h4>
+                    </div>
+                    <p class="text-amber-800 text-xs leading-relaxed">
+                        Polls are reset every 30 days automatically. To keep a poll longer, mark it as "Permanent" in the advanced settings menu.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleDrawer() { 
+            document.getElementById('drawer').classList.toggle('open'); 
+            document.getElementById('overlay').classList.toggle('open'); 
+        }
+    </script>
+</body>
+</html>
