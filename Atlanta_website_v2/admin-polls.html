@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin: Manage Polls & Forms</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="main-content">
+        <h1>🗳️ Manage Polls & Forms</h1>
+        <p>Create new polls for students and view submissions for existing forms.</p>
+
+        <div class="info-card" style="margin-bottom: 30px;"
+            <h2>Create New Poll</h2>
+            <form>
+                <input type="text" placeholder="Poll Question (e.g., What should be Prom theme? )" required
+                    style="width: 100%; padding: 10px; margin-bottom: 15px;">
+
+                <input type="text" placeholder="Option 1" style="width: 100%; padding: 10px; margin-bottom: 10px;"
+                <input type="text" placeholder="Option 2" style="width: 100%; padding: 10px; margin-bottom: 10px;"
+                <input type="text" placeholder="Option 3" style="width: 100%; padding: 10px; margin-bottom: 15px;"
+                <button type="submit" class="cta-button">Launch Poll</button>
+            </form>
+    </div>
+
+    <div class="info-card">
+        <h2>Active Poll Results</h2>
+        <table class="roster-table" style="margin-top: 15px;">
+            <thead>
+                <tr>
+                    <th>Poll Name</th>
+                    <th>Status</th>
+                    <th>Total Votes</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-lable="Poll Name">Prom Theme</td>
+                    <td data-lable="Status">Active</td>
+                    <td data-lable="Total Votes">154</td>
+                    <td data-lable="Action"><a href="#" class="read-more">View Results</a></td>
+                </tr>
+                <tr>
+                    <td data-label="Poll Name">Best Lunch Item</td>
+                    <td data-label="Status">Closed</td>
+                    <td data-label="Total Votes">210</td>
+                    <td data-label="Action"><a href="#" class="read-more">Archive</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html>
