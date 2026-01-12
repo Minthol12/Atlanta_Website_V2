@@ -1,401 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlanta NewsCast - How-To Guides</title>
-
-    <!-- External Fonts & Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <title>How-To Guides | Atlanta C-3 School District</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;900&display=swap');
+        
         :root {
-            --color-bg: #f8fafc;
-            --color-surface: #ffffff;
-            --color-primary: #1e40af; /* Deep Royal Blue */
-            --color-accent: #3b82f6; /* Bright Blue */
-            --color-text: #1e293b;
-            --color-text-muted: #64748b;
-            --header-height: 70px;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --transition: all 0.25s ease;
+            --primary: #003366;
+            --accent: #FFD700;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, .news-title, .accordion-header { font-family: 'Playfair Display', serif; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            line-height: 1.6;
-        }
+        .nav-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .nav-drawer.open { transform: translateX(0); }
+        .overlay { transition: opacity 0.4s ease; opacity: 0; pointer-events: none; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
 
-        /* Header Styling */
-        .header {
-            height: var(--header-height);
-            background: var(--color-surface);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
-
-        .logo-container a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--color-primary);
-            text-decoration: none;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 1.25rem;
-            text-transform: uppercase;
-        }
-
-        .header-logo {
-            width: 40px;
-            height: 40px;
-        }
-
-        .main-nav {
-            display: flex;
-            gap: 25px;
-        }
-
-        .main-nav a {
-            color: var(--color-text-muted);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .main-nav a:hover, .main-nav a.active {
-            color: var(--color-primary);
-        }
-
-        .cta-button {
-            background: var(--color-primary);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            background: var(--color-accent);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: white;
-            padding: 60px 5%;
-            text-align: center;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .hero h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.5rem;
-            color: var(--color-primary);
-            margin-bottom: 15px;
-        }
-
-        .hero p {
-            color: var(--color-text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 5%;
-        }
-
-        .section-label {
-            display: block;
-            text-transform: uppercase;
-            font-weight: 800;
-            font-size: 0.75rem;
-            color: var(--color-accent);
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-        }
-
-        /* Accordion Styling */
+        /* Accordion Custom Styling to match master theme */
         .accordion-item {
-            background: var(--color-surface);
-            border-radius: 12px;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
-            border: 1px solid #edf2f7;
+            background: white;
+            border-radius: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e2e8f0;
             overflow: hidden;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
-
         .accordion-item:hover {
-            box-shadow: var(--shadow-lg);
-            border-color: var(--color-accent);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
         }
-
         .accordion-header {
             width: 100%;
-            padding: 24px;
-            background: none;
-            border: none;
+            padding: 1.5rem 2rem;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             cursor: pointer;
+            font-weight: 800;
+            color: var(--primary);
             text-align: left;
         }
-
-        .accordion-header span:first-child {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: var(--color-primary);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .toggle-icon {
-            color: var(--color-text-muted);
-            transition: transform 0.3s ease;
-        }
-
-        .accordion-item.active .toggle-icon {
-            transform: rotate(180deg);
-            color: var(--color-accent);
-        }
-
         .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: none;
+            padding: 0 2rem 2rem 2rem;
+            color: #475569;
         }
-
-        .accordion-item.active .accordion-content {
-            max-height: 1000px;
-        }
-
-        .content-body {
-            padding: 0 24px 24px 64px;
-            color: var(--color-text);
-        }
-
-        .content-body h3 {
-            font-size: 1rem;
-            margin-bottom: 12px;
-            color: var(--color-primary);
-        }
-
-        .content-body ol {
-            padding-left: 18px;
-            margin-bottom: 20px;
-        }
-
-        .content-body li {
-            margin-bottom: 8px;
-            color: var(--color-text-muted);
-        }
-
-        /* Form Links */
-        .form-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: #f1f5f9;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--color-primary);
-            font-weight: 600;
-            margin-bottom: 8px;
-            transition: var(--transition);
-        }
-
-        .form-link:hover {
-            background: #e2e8f0;
-            color: var(--color-accent);
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 80px;
-            padding: 40px 5%;
-            background: white;
-            border-top: 1px solid #e2e8f0;
-            text-align: center;
-        }
-
-        .footer p {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-        }
-
-        .footer .credit {
-            margin-top: 10px;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-nav { display: none; }
-            .hero h1 { font-size: 1.8rem; }
-            .content-body { padding-left: 24px; }
-        }
+        .accordion-content.active { display: block; }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900">
 
-    <header class="header">
-        <div class="logo-container">
-            <a href="index.html">
-                <img src="Bee2.png" alt="Logo" class="header-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/1e40af/ffffff?text=B'">
-                <span>Atlanta NewsCast</span>
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-[#003366] rounded-xl flex items-center justify-center text-white font-bold group-hover:rotate-12 transition-transform">A</div>
+                <div>
+                    <span class="font-extrabold text-slate-900 tracking-tight block leading-none">ATLANTA C-3</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">School District</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-sm font-bold hover:text-[#003366]">Home</a>
+                <a href="schoolnews.html" class="text-sm font-bold hover:text-[#003366]">News</a>
+                <a href="sports.html" class="text-sm font-bold hover:text-[#003366]">Athletics</a>
+                <a href="calendar.html" class="text-sm font-bold hover:text-[#003366]">Calendar</a>
+            </div>
+
+            <button onclick="toggleDrawer()" class="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <div id="overlay" onclick="toggleDrawer()" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
+    <div id="drawer" class="nav-drawer fixed top-0 right-0 h-full w-80 bg-white z-[60] shadow-2xl p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xs font-black uppercase tracking-widest text-slate-400">Navigation</span>
+            <button onclick="toggleDrawer()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex flex-col gap-6">
+            <a href="index.html" class="text-3xl font-black hover:text-[#003366]">Home</a>
+            <a href="schoolnews.html" class="text-3xl font-black hover:text-[#003366]">News</a>
+            <a href="athletics.html" class="text-3xl font-black hover:text-[#003366]">Athletics</a>
+            <a href="calendar.html" class="text-3xl font-black hover:text-[#003366]">Calendar</a>
+            <a href="staff.html" class="text-3xl font-black hover:text-[#003366]">Staff</a>
+            <hr class="border-slate-100 my-4">
+            <a href="admin-login.html" class="text-sm font-bold text-slate-400 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Staff Portal
             </a>
         </div>
-        
-        <nav class="main-nav">
-            <a href="sports.html">Sports</a>
-            <a href="howto.html" class="active">How-To</a>
-            <a href="student.html">Students</a>
-            <a href="worldnews.html">World</a>
-            <a href="schoolnews.html">School</a>
-        </nav>
+    </div>
 
-        <a href="auth.html" class="cta-button">Portal Login</a>
+    <header class="bg-[#003366] py-16 px-6 relative overflow-hidden text-white">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 L100 0 L100 100 Z" fill="white"></path>
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10 text-center md:text-left">
+            <span class="inline-block bg-[#FFD700] text-[#003366] px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest mb-4">Resources</span>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">How-To Guides</h1>
+            <p class="text-blue-100 text-lg leading-relaxed max-w-2xl">Essential resources, forms, and digital access instructions for students and parents.</p>
+        </div>
     </header>
 
-    <div class="hero">
-        <h1>How-To & Guides</h1>
-        <p>Everything you need to navigate school life, from technical setup to required athletic documentation.</p>
-    </div>
-
-    <div class="container">
-        <span class="section-label">Documentation Categories</span>
-
-        <div class="accordion-container">
-
-            <!-- Technology -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    <span><i class="fas fa-laptop"></i> Technology & Wi-Fi</span>
-                    <i class="fas fa-chevron-down toggle-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="content-body">
-                        <h3>Campus Wi-Fi Setup</h3>
-                        <ol>
-                            <li>Open Wi-Fi settings on your device.</li>
-                            <li>Select <strong>ANC-Student</strong>.</li>
-                            <li>Login with your Student ID and Portal Password.</li>
-                            <li>If prompted, select "Trust" for the certificate.</li>
-                        </ol>
-                        <h3>Account Recovery</h3>
-                        <p>If you've forgotten your password, please visit the Media Center during advisory or use the automated reset tool on the student portal.</p>
-                    </div>
+    <main class="max-w-4xl mx-auto px-6 py-20">
+        <div class="accordion-item">
+            <button class="accordion-header text-2xl">
+                Athletics: Physicals & MSHSAA Forms
+                <i class="fas fa-plus text-sm"></i>
+            </button>
+            <div class="accordion-content">
+                <p class="mb-6">All athletes must have a current physical on file before participating in practices or games.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#" class="bg-[#003366] text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-800 transition-all text-sm uppercase tracking-wider">Download Physical Form</a>
+                    <a href="#" class="bg-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold hover:bg-slate-300 transition-all text-sm uppercase tracking-wider">MSHSAA Handbook</a>
                 </div>
             </div>
-
-            <!-- Cybersecurity -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    <span><i class="fas fa-shield-halved"></i> Cybersecurity Essentials</span>
-                    <i class="fas fa-chevron-down toggle-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="content-body">
-                        <h3>Common Threats</h3>
-                        <p><strong>Phishing:</strong> Be wary of emails asking for login credentials. Check the sender domain carefully.</p>
-                        <p><strong>DDoS:</strong> Large scale traffic attacks meant to slow down networks. If the internet is crawling, IT is likely mitigating one.</p>
-                        <h3>Security Best Practices</h3>
-                        <ol>
-                            <li>Use 12+ character passwords with symbols.</li>
-                            <li>Never share your student login with anyone.</li>
-                            <li>Log out of public computers in the lab before leaving.</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Athletics -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    <span><i class="fas fa-running"></i> Athletic Forms</span>
-                    <i class="fas fa-chevron-down toggle-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="content-body">
-                        <h3>MSHSAA Requirements</h3>
-                        <p>All students participating in sports must have these forms on file with the Athletic Director.</p>
-                        
-                        <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-AnDoc-ALL.pdf" target="_blank" class="form-link">
-                            <i class="far fa-file-pdf"></i> Annual Participation Document
-                        </a>
-                        <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-PPE-MH-SSMB.pdf" target="_blank" class="form-link">
-                            <i class="far fa-file-pdf"></i> Physical Examination Form (PPE)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Academics -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    <span><i class="fas fa-graduation-cap"></i> Academic Portals</span>
-                    <i class="fas fa-chevron-down toggle-icon"></i>
-                </button>
-                <div class="accordion-content">
-                    <div class="content-body">
-                        <h3>Lumen Touch</h3>
-                        <p>Access your grades, attendance records, and meal account balance through the Lumen portal.</p>
-                        <a href="https://lumen.atlanta.k12.mo.us/lumen/signin" target="_blank" class="cta-button" style="display:inline-block; margin-top:10px;">Open Lumen</a>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </div>
 
-    <footer class="footer">
-        <p>Atlanta C-3 Schools | 600 S. Atterberry Street | Atlanta, Missouri 63530</p>
-        <p class="credit">Atlanta NewsCast V2</p>
+        <div class="accordion-item">
+            <button class="accordion-header text-2xl">
+                Technology: Logging into Lumen & Google
+                <i class="fas fa-plus text-sm"></i>
+            </button>
+            <div class="accordion-content">
+                <p>Follow these steps to access your student portal and grades.</p>
+                <ul class="list-disc ml-6 mt-4 space-y-2 font-medium">
+                    <li>Open Chrome and go to the Atlanta C-3 homepage.</li>
+                    <li>Click the 'Lumen' link under the Student tab.</li>
+                    <li>Use your lunch number as your username.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header text-2xl">
+                Library: Checking Out Resources
+                <i class="fas fa-plus text-sm"></i>
+            </button>
+            <div class="accordion-content">
+                <p class="leading-relaxed">Students can check out up to 3 books at a time for a period of two weeks. Digital e-books are available through the Sora app using your school credentials.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-20 pb-10 px-6 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#003366] font-bold">A</div>
+                        <span class="text-2xl font-black">ATLANTA C-3</span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm mb-6">Empowering students through excellence in education, athletics, and community involvement since 1922.</p>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-sm font-bold">
+                        <li><a href="#" class="hover:text-[#FFD700]">Board of Education</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Employment</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Parent Portal</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">Contact</h4>
+                    <p class="text-sm text-slate-400 mb-4">600 George St, Atlanta, MO 63530</p>
+                    <p class="text-sm text-slate-400 mb-2">(660) 239-4211</p>
+                    <div class="flex gap-4 mt-6">
+                        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 cursor-pointer transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-10 text-center text-xs text-slate-500 font-bold">
+                &copy; 2025 Atlanta C-3 School District. All Rights Reserved.
+            </div>
+        </div>
     </footer>
 
     <script>
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.parentElement;
-                
-                // Optional: Close others when opening one
-                // document.querySelectorAll('.accordion-item').forEach(other => {
-                //    if (other !== item) other.classList.remove('active');
-                // });
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
 
-                item.classList.toggle('active');
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                const isOpen = content.classList.contains('active');
+                
+                // Close all others
+                document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.accordion-header i').forEach(i => i.classList.replace('fa-minus', 'fa-plus'));
+
+                if (!isOpen) {
+                    content.classList.add('active');
+                    icon.classList.replace('fa-plus', 'fa-minus');
+                }
             });
         });
     </script>

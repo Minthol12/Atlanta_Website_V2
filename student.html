@@ -1,218 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlanta NewsCast V2 - Student Section</title>
-    
-    <link rel="stylesheet" href="style.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <title>Student Section | Atlanta C-3 School District</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;900&display=swap');
+        
         :root {
-            --atlanta-blue: #003399; /* Deep Blue for contrast */
-            --atlanta-white: #ffffff;
-            --light-bg: #f4f7f9;
-            --text-dark: #1a1a1a;
+            --primary: #003366;
+            --accent: #FFD700;
         }
 
-        body {
-            background-color: var(--light-bg);
-            color: var(--text-dark);
-        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .section-title { font-family: 'Playfair Display', serif; }
 
-        .hornet-hub-hero {
-            background: var(--atlanta-blue);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-            border-bottom: 5px solid #002266;
-        }
+        .nav-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        .nav-drawer.open { transform: translateX(0); }
+        .overlay { transition: opacity 0.4s ease; opacity: 0; pointer-events: none; }
+        .overlay.open { opacity: 1; pointer-events: auto; }
 
-        .student-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border: 2px solid #e0e0e0;
-            padding: 25px;
-            height: 100%;
-        }
-
-        .accent-text-blue {
-            color: var(--atlanta-blue);
-            font-weight: bold;
-        }
-
-        /* Bell Schedule Table Styling */
+        /* Custom Bell Schedule Styling to match new look */
         .schedule-row {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: var(--text-dark);
-            font-size: 1rem;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
         }
-
-        .schedule-row:last-child {
-            border-bottom: none;
-        }
-
         .lunch-highlight {
-            background: #e6f0ff;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 6px;
-            color: var(--atlanta-blue);
-        }
-
-        /* Form Link Styling */
-        .mshsaa-link {
-            text-decoration: none;
-            color: var(--text-dark);
-            display: block;
-            padding: 15px;
-            background: #f9f9f9;
-            border-left: 5px solid var(--atlanta-blue);
-            border-radius: 4px;
-            margin-bottom: 10px;
-            transition: background 0.2s;
-        }
-
-        .mshsaa-link:hover {
-            background: #f0f4ff;
-        }
-
-        .tool-icon-btn {
-            text-decoration: none;
-            background: var(--atlanta-blue);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            color: white !important;
-            transition: transform 0.2s;
-        }
-
-        .tool-icon-btn:hover {
-            transform: translateY(-3px);
-            background: #002266;
+            background: #f1f5f9;
+            color: var(--primary);
+            padding: 12px;
+            border-radius: 12px;
+            margin: 4px 0;
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900">
 
-    <header class="header">
-        <div class="logo-container">
-            <a href="index.html">
-                <img src="Bee2.png" alt="Atlanta NewsCast Logo" class="header-logo">
-                <span class="site-title-text">Atlanta NewsCast</span>
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-[#003366] rounded-xl flex items-center justify-center text-white font-bold group-hover:rotate-12 transition-transform">A</div>
+                <div>
+                    <span class="font-extrabold text-slate-900 tracking-tight block leading-none">ATLANTA C-3</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">School District</span>
+                </div>
             </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-sm font-bold hover:text-[#003366]">Home</a>
+                <a href="schoolnews.html" class="text-sm font-bold hover:text-[#003366]">News</a>
+                <a href="athletics.html" class="text-sm font-bold hover:text-[#003366]">Athletics</a>
+                <a href="student.html" class="text-sm font-bold text-[#003366]">Student Section</a>
+            </div>
+
+            <button onclick="toggleDrawer()" class="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
         </div>
-        
-        <nav class="main-nav">
-            <a href="sports.html">Sports</a>
-            <a href="howto.html">How-To</a>
-            <a href="student.html" class="active">Student Section</a>
-            <a href="worldnews.html">World News</a>
-            <a href="schoolnews.html">School News</a>
-        </nav>
+    </nav>
+
+    <div id="overlay" onclick="toggleDrawer()" class="overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50"></div>
+    <div id="drawer" class="nav-drawer fixed top-0 right-0 h-full w-80 bg-white z-[60] shadow-2xl p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xs font-black uppercase tracking-widest text-slate-400">Navigation</span>
+            <button onclick="toggleDrawer()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex flex-col gap-6">
+            <a href="index.html" class="text-3xl font-black hover:text-[#003366]">Home</a>
+            <a href="schoolnews.html" class="text-3xl font-black hover:text-[#003366]">News</a>
+            <a href="athletics.html" class="text-3xl font-black hover:text-[#003366]">Athletics</a>
+            <a href="student.html" class="text-3xl font-black text-[#003366]">Student Section</a>
+            <a href="staff.html" class="text-3xl font-black hover:text-[#003366]">Staff</a>
+        </div>
+    </div>
+
+    <header class="bg-[#003366] py-20 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 L100 0 L100 100 Z" fill="white"></path>
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10 text-center">
+            <span class="inline-block bg-[#FFD700] text-[#003366] px-4 py-1 rounded-md text-xs font-black uppercase tracking-widest mb-4">Official Student Resources</span>
+            <h1 class="text-5xl md:text-7xl text-white font-black mb-4">The Hornet Hub</h1>
+            <p class="text-blue-100 text-lg max-w-2xl mx-auto">Everything you need to succeed at Atlanta C-3, from bell schedules to athletic forms.</p>
+        </div>
     </header>
 
-    <div class="hornet-hub-hero">
-        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">The <span style="text-decoration: underline;">Hornet Hub</span></h1>
-        <p style="font-size: 1.2rem; opacity: 0.9;">Official Student Resources for Atlanta C-3</p>
-    </div>
-
-    <div class="main-content" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
-        
-        <div class="student-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid lg:grid-cols-3 gap-8">
             
-            <!-- COLUMN 1: BELL SCHEDULE -->
-            <div class="student-card">
-                <h2 style="color: var(--atlanta-blue); margin-bottom: 20px; border-bottom: 2px solid var(--atlanta-blue); padding-bottom: 10px;">
-                    <i class="fas fa-clock"></i> Bell Schedule
-                </h2>
-                <div class="schedule-container">
-                    <div class="schedule-row"><span>1st Hour</span> <span>8:15 - 9:07</span></div>
-                    <div class="schedule-row"><span>2nd Hour</span> <span>9:10 - 9:58</span></div>
-                    <div class="schedule-row"><span>3rd Hour</span> <span>10:00 - 10:46</span></div>
-                    <div class="schedule-row"><span>4th Hour</span> <span>10:48 - 11:38</span></div>
-                    <div class="schedule-row lunch-highlight"><span>LUNCH</span> <span>11:40 - 12:00</span></div>
-                    <div class="schedule-row"><span>5th Hour</span> <span>12:00 - 12:46</span></div>
-                    <div class="schedule-row"><span>6th Hour</span> <span>12:48 - 1:38</span></div>
-                    <div class="schedule-row"><span>7th Hour</span> <span>1:40 - 2:28</span></div>
-                    <div class="schedule-row" style="font-weight: bold;"><span>8th Hour</span> <span>2:30 - 3:15</span></div>
-                </div>
-                <p style="margin-top: 15px; font-size: 0.9rem; color: #555; text-align: center;"><em>School ends at 3:15 PM</em></p>
-            </div>
-
-            <!-- COLUMN 2: FORMS & ATHLETICS -->
-            <div class="student-card">
-                <h2 style="color: var(--atlanta-blue); margin-bottom: 20px; border-bottom: 2px solid var(--atlanta-blue); padding-bottom: 10px;">
-                    <i class="fas fa-file-signature"></i> Athletics & Forms
-                </h2>
-                <div class="forms-container">
-                    <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-AnDoc-ALL.pdf" target="_blank" class="mshsaa-link">
-                        <strong style="display: block;">Annual Requirements Form</strong>
-                        <small style="color: #666;">Sports Authorization (Every Year)</small>
-                    </a>
-                    <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-PPE-MH-SSMB.pdf" target="_blank" class="mshsaa-link">
-                        <strong style="display: block;">Sports Physical Form (PPE)</strong>
-                        <small style="color: #666;">Valid for 2 Years</small>
-                    </a>
-                    <a href="https://www.mshsaa.org/resources/PDF/A%20Parent%27s%20-%20Guardian%27s%20Guide%20to%20Concussion%20-%20April%202019.pdf" target="_blank" class="mshsaa-link">
-                        <strong style="display: block;">Concussion Guide</strong>
-                        <small style="color: #666;">Parent/Guardian Essential Reading</small>
-                    </a>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-[#003366]">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h2 class="text-3xl font-black tracking-tight">Bell Schedule</h2>
                 </div>
                 
-                <h3 style="margin-top: 25px; margin-bottom: 10px;">Grades & Portal</h3>
-                <a href="https://lumen.atlanta.k12.mo.us/lumen/signin" target="_blank" class="tool-icon-btn" style="display: block; padding: 15px;">
-                    <i class="fas fa-user-graduate"></i> Login to Lumen Portal
-                </a>
+                <div class="space-y-1">
+                    <div class="schedule-row"><span>1st Hour</span> <span class="text-slate-500">8:15 - 9:07</span></div>
+                    <div class="schedule-row"><span>2nd Hour</span> <span class="text-slate-500">9:10 - 9:58</span></div>
+                    <div class="schedule-row"><span>3rd Hour</span> <span class="text-slate-500">10:00 - 10:46</span></div>
+                    <div class="schedule-row"><span>4th Hour</span> <span class="text-slate-500">10:48 - 11:38</span></div>
+                    <div class="schedule-row lunch-highlight"><span>LUNCH</span> <span>11:40 - 12:00</span></div>
+                    <div class="schedule-row"><span>5th Hour</span> <span class="text-slate-500">12:00 - 12:46</span></div>
+                    <div class="schedule-row"><span>6th Hour</span> <span class="text-slate-500">12:48 - 1:38</span></div>
+                    <div class="schedule-row"><span>7th Hour</span> <span class="text-slate-500">1:40 - 2:28</span></div>
+                    <div class="schedule-row border-none pt-4 text-lg"><span>8th Hour</span> <span class="text-[#003366]">2:30 - 3:15</span></div>
+                </div>
+                <p class="mt-8 text-center text-xs font-bold text-slate-400 uppercase tracking-widest">Dismissal at 3:15 PM</p>
             </div>
 
-            <!-- COLUMN 3: SPIRIT & TOOLS -->
-            <div class="student-card" style="display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                    <h2 style="color: var(--atlanta-blue); margin-bottom: 20px; border-bottom: 2px solid var(--atlanta-blue); padding-bottom: 10px;">
-                        <i class="fas fa-star"></i> Hornet Spirit
-                    </h2>
-                    <!-- Spirit Box: Blue and White -->
-                    <div style="background: var(--atlanta-blue); color: white; padding: 25px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
-                        <h3 style="color: white; margin-bottom: 10px;">GO HORNETS!</h3>
-                        <p style="font-size: 1.1rem;">Blue & White Forever</p>
-                        <hr style="border-color: rgba(255,255,255,0.3); margin: 15px 0;">
-                        <p style="font-size: 0.9rem;">Check the <a href="sports.html" style="color: white; text-decoration: underline;">Sports Page</a> for game times.</p>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-[#003366]">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1.2 2 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     </div>
+                    <h2 class="text-3xl font-black tracking-tight">Athletics & Forms</h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-AnDoc-ALL.pdf" target="_blank" class="block p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-[#003366] transition-all group">
+                        <span class="block font-bold text-[#003366]">Annual Requirements Form</span>
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Required Every Year</span>
+                    </a>
+                    <a href="https://www.mshsaa.org/resources/SportsMedicine/MSHSAA-PPE-MH-SSMB.pdf" target="_blank" class="block p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-[#003366] transition-all group">
+                        <span class="block font-bold text-[#003366]">Sports Physical Form (PPE)</span>
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Valid for 2 Years</span>
+                    </a>
                 </div>
 
-                <div>
-                    <h3 style="margin-bottom: 15px;">Student Toolbox</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <a href="howto.html" class="tool-icon-btn">
-                            <i class="fas fa-wifi"></i><br><span style="font-size: 0.8rem;">WiFi Help</span>
+                <div class="mt-12">
+                    <h3 class="text-xl font-black mb-4">Grades & Portal</h3>
+                    <a href="https://lumen.atlanta.k12.mo.us/lumen/signin" target="_blank" class="flex items-center justify-center gap-3 w-full py-4 bg-[#003366] text-white rounded-2xl font-bold hover:bg-slate-800 transition-all shadow-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></a href="https://lumen.atlanta.k12.mo.us/lumen/signin">
+                        Login to Lumen Portal
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-8">
+                <div class="bg-[#003366] p-8 rounded-3xl text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-3xl font-black mb-2">GO HORNETS!</h2>
+                        <p class="text-blue-200 mb-6">Blue & White Forever</p>
+                        <a href="sports.html" class="inline-block bg-[#FFD700] text-[#003366] px-6 py-2 rounded-xl font-bold text-sm">View Game Times</a>
+                    </div>
+                    <div class="absolute -right-4 -bottom-4 opacity-10 text-9xl font-black">A</div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 flex-grow">
+                    <h2 class="text-3xl font-black tracking-tight mb-8">Student Toolbox</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="howto.html" class="flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-blue-50 hover:border-[#003366] transition-all text-[#003366]">
+                            <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071a10 10 0 0114.142 0M1.343 6.343a15 15 0 0121.214 0"></path></svg>
+                            <span class="text-xs font-black uppercase">WiFi Help</span>
                         </a>
-                        <a href="#" class="tool-icon-btn">
-                            <i class="fas fa-book"></i><br><span style="font-size: 0.8rem;">Library</span>
+                        <a href="#" class="flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-blue-50 hover:border-[#003366] transition-all text-[#003366]">
+                            <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            <span class="text-xs font-black uppercase">Library</span>
                         </a>
-                        <a href="#" class="tool-icon-btn">
-                            <i class="fas fa-bus"></i><br><span style="font-size: 0.8rem;">Bus Routes</span>
+                        <a href="#" class="flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-blue-50 hover:border-[#003366] transition-all text-[#003366]">
+                            <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            <span class="text-xs font-black uppercase">Counselor</span>
                         </a>
-                        <a href="#" class="tool-icon-btn">
-                            <i class="fas fa-heart"></i><br><span style="font-size: 0.8rem;">Counselor</span>
+                        <a href="#" class="flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-blue-50 hover:border-[#003366] transition-all text-[#003366]">
+                            <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-xs font-black uppercase">Support</span>
                         </a>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
+    </main>
 
-    <footer class="main-footer" style="margin-top: 50px; background: #333; color: white; padding: 30px; text-align: center;">
-        <p>Atlanta C-3 Schools * 600 S. Atterberry Street * Atlanta, Missouri 63530</p>
-        <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px;">Made by Zayne ;)</p>
+    <footer class="bg-slate-900 text-white pt-20 pb-10 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#003366] font-bold">A</div>
+                        <span class="text-2xl font-black">ATLANTA C-3</span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm mb-6">Empowering students through excellence in education, athletics, and community involvement since 1922.</p>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-sm font-bold">
+                        <li><a href="#" class="hover:text-[#FFD700]">Board of Education</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Employment</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Parent Portal</a></li>
+                        <li><a href="#" class="hover:text-[#FFD700]">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">Contact</h4>
+                    <p class="text-sm text-slate-400 mb-4">600 George St, Atlanta, MO 63530</p>
+                    <p class="text-sm text-slate-400 mb-2">(660) 239-4211</p>
+                    <p class="text-[10px] text-slate-600 mt-4 uppercase font-black tracking-widest">Site by Zayne</p>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-10 text-center text-xs text-slate-500 font-bold">
+                &copy; 2025 Atlanta C-3 School District. All Rights Reserved.
+            </div>
+        </div>
     </footer>
 
+    <script>
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
